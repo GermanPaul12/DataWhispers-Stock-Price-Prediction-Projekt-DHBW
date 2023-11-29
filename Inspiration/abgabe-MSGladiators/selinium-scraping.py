@@ -3,6 +3,7 @@ from concurrent import futures
 from pathlib import Path
 
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
 START_AT_STARTTIME = 43770  # date epoch as used by economictimes
@@ -14,6 +15,8 @@ def get_fresh_driver():
     Get a fresh Chrome driver with a Google Bot User Agent.
     :return: selenium.webdriver.Chrome
     """
+    driver_path = "/opt/homebrew/bin/chromedriver" # CHANGE THIS TO YOUR PATH
+    s = Service(driver_path)
     user_agent = "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html)"  # Google Bot User Agent
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
@@ -21,7 +24,7 @@ def get_fresh_driver():
     options.add_argument("--window-size=1920,1080")
     options.add_argument('--no-sandbox')
     options.add_argument('—-disable-extensions')
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(service=s, options=options)
 
     return driver
 
@@ -68,6 +71,7 @@ def run():
         retries = 0
         element = None
         while not success and retries < MAX_RETRIES:
+            
             try:
                 driver = get_fresh_driver()
                 driver.get(f"http://economictimes.indiatimes.com/archivelist/starttime-{starttime}.cms")
