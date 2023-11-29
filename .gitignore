@@ -61,12 +61,7 @@ Thumbs.db
 
 # other unneeded files in remote
 *.parquet
-.csv
-.png
-.jpg
-.jpeg
 *.xlsx
 *.xls
 *.txt
-.ppt
-.pptx
+
