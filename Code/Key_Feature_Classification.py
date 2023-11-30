@@ -186,16 +186,16 @@ def text_classifier(titles: List[str], key_features_tokens: List[List[str]]) -> 
     # and the value is the computed distance.
     precomputed_distances = {}
 
-    for i, title in enumerate(titles):
+    for title in titles:
         title_tokens = preprocess_text(title)
         if not title_tokens:
             continue
         print(i)
-        for idx_kf, key_feature in enumerate(key_features_tokens):
+        for key_feature in key_features_tokens:
             distances = []
             print(key_feature)
             for title_token in title_tokens:
-                for j, key_feature_token in enumerate(key_feature):
+                for key_feature_token in key_feature:
                     print(title_token)
                     # Check if the distance is already computed
                     if (title_token, key_feature_token) not in precomputed_distances:
