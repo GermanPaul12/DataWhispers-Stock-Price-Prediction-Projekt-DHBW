@@ -193,5 +193,5 @@ def text_classifier(titles: List[str], key_features_tokens: List[List[str]]) -> 
 # create dataset with classifications
 classifications = text_classifier(df_prepro_data['title'], key_features_normalized)
 classifications['date'] = df_prepro_data['date']
-classifications.to_csv('classification_wordnet.csv', index=False)
+classifications.to_csv('./data/classification_wordnet.csv', index=False)
     
