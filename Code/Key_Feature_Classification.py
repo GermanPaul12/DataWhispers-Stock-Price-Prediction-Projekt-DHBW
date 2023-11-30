@@ -153,30 +153,6 @@ key_features_weights = [[2/5, 3/5],[4/5, 1/5], [1/2, 1/2], [4/5, 1/5], [4/5, 1/5
 key_features_normalized = [preprocess_text(key) for key in key_features]
 
 # final classifier function
-def text_classifier_(titles: List[str], key_features_tokens: List[str]) -> pd.DataFrame:
-    """Classify the input title according to the input key features.
-    :param df: input list with titles
-    :param key_features: list of key features
-    :return: data frame with additional column that contains the classification
-    """
-    df_classifier = np.zeros((len(titles), len(key_features_tokens)))
-    for i, title in enumerate(titles):
-        title_tokens = preprocess_text(title)
-        if len(title_tokens) == 0:
-            continue
-        print(i)
-        for idx_kf, key_feature in enumerate(key_features_tokens):
-            avg_distance_tt_kf = 0
-            print(key_feature)
-            for idx_tt, title_token in enumerate(title_tokens):
-                print(title_token)
-                avg_distance_tt_kf += sum([get_dist(key_feature_splitted, title_token) * key_features_weights[idx_kf][j]
-                                           for j, key_feature_splitted in enumerate(key_feature)])/len(key_features)
-            df_classifier[i, idx_kf] = avg_distance_tt_kf / len(title_tokens)
-
-    return pd.DataFrame(data=df_classifier,  columns = key_features_original)
-
-
 def text_classifier(titles: List[str], key_features_tokens: List[List[str]]) -> pd.DataFrame:
     # Initialize a DataFrame to store the classification results
     df_classifier = np.zeros((len(titles), len(key_features_tokens)))
@@ -186,16 +162,16 @@ def text_classifier(titles: List[str], key_features_tokens: List[List[str]]) -> 
     # and the value is the computed distance.
     precomputed_distances = {}
 
-    for title in titles:
+    for i, title in enumerate(titles):
         title_tokens = preprocess_text(title)
         if not title_tokens:
             continue
         print(i)
-        for key_feature in key_features_tokens:
+        for idx_kf, key_feature in enumerate(key_features_tokens):
             distances = []
             print(key_feature)
             for title_token in title_tokens:
-                for key_feature_token in key_feature:
+                for j, key_feature_token in enumerate(key_feature):
                     print(title_token)
                     # Check if the distance is already computed
                     if (title_token, key_feature_token) not in precomputed_distances:
