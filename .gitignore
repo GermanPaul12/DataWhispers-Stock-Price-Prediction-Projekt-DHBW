@@ -63,3 +63,5 @@ Thumbs.db
 *.parquet
 *.xls
 
+# Virtual environment
+venv/
