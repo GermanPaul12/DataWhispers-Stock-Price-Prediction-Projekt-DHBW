@@ -61,7 +61,5 @@ Thumbs.db
 
 # other unneeded files in remote
 *.parquet
-*.xlsx
 *.xls
-*.txt
 
