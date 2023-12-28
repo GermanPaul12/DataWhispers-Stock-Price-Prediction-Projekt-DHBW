@@ -24,7 +24,7 @@ from nltk import pos_tag
 
 
 # load data
-df_prepro_data = pd.read_csv('/home/jw124/dhbw/3_semester/methoden_wirtschaftsinformatik/DataWhispers-Stock-Price-Prediction-Projekt-DHBW/Inspiration/abgabe-MSGladiators/data/preprocessed_data.csv')
+df_prepro_data = pd.read_csv('data/preprocessed_data.csv')
 df_prepro_data = df_prepro_data[df_prepro_data['title'].notna()]
 
 # function to preprocess text
@@ -166,13 +166,13 @@ def text_classifier(titles: List[str], key_features_tokens: List[List[str]]) -> 
         title_tokens = preprocess_text(title)
         if not title_tokens:
             continue
-        print(i)
+        # print(i)
         for idx_kf, key_feature in enumerate(key_features_tokens):
             distances = []
-            print(key_feature)
+            # print(key_feature)
             for title_token in title_tokens:
                 for j, key_feature_token in enumerate(key_feature):
-                    print(title_token)
+                    # print(title_token)
                     # Check if the distance is already computed
                     if (title_token, key_feature_token) not in precomputed_distances:
                         distance = get_dist(title_token, key_feature_token)
