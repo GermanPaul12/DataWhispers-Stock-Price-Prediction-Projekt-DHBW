@@ -1,7 +1,7 @@
 import streamlit as st
 import yagmail
-from keyring import get_keyring
-get_keyring()
+
+st.title("Contact us")
 
 # Forms um uns zu kontaktieren.
 with st.form("contact_form", clear_on_submit=True):
@@ -17,4 +17,5 @@ with st.form("contact_form", clear_on_submit=True):
         # Here you can add code to handle the form data
         # For example, sending an email or storing it in a database
         yag = yagmail.SMTP('automatedbygerman@gmail.com', st.secrets.app_pw)
-        
+        yag.send(subject="Request from Data Whispers Stocks Streamlit Web-App", 
+            contents=f"name: {name}\n\nemail: {email}\n\nmessage: {message}")
