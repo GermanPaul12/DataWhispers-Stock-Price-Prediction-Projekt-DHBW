@@ -12,6 +12,9 @@ st.sidebar.success('Select a page above ⬆')
 with st.container():
     st.title('Data Whispers AG - Stock Price Prediction')
     st.write('You want to see the code? ➡ Check out the [Github Repository](https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW) 💡')
-    st.write("\n")
+    st.write("""\nWillkommen im Olymp der Finanzwelt, wo die Götter des Reichtums mit goldenen
+Aktien jonglieren! "Data Whispers" ist kein gewöhnlicher Name - es ist ein
+Versprechen, ein Flüstern der Zukunft, das nur für die Ohren der mutigsten und
+kühnsten Investoren bestimmt ist. """)
     st.image("./WI-Modelle_Bilder_Zeichnungen/Preview-Website.png", caption='Preview')
     
