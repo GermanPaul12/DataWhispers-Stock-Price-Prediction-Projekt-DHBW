@@ -3,6 +3,7 @@ import streamlit as st
 st.title("Our Code 💻")
 
 if st.checkbox("Web-Scraping with Selenium"):
+    
     st.code('''
             import time
 from concurrent import futures
@@ -115,3 +116,18 @@ def run():
 if __name__ == '__main__':
     run()
 ''')
+
+if st.checkbox("Requirements"):
+    st.code('''
+            nltk==3.7
+pandas==1.4.1
+scikit_learn==1.3.2
+selenium==4.15.2
+lxml==4.9.3
+bertopic==0.16.0
+docarray==0.39.1
+gensim==4.3.2
+plotly==5.15.0
+streamlit==1.26.0
+cufflinks==0.17.3''')   
+     
