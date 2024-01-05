@@ -118,5 +118,5 @@ if __name__ == '__main__':
 ''')
 
 if st.checkbox("Requirements"):
-    st.code(open("../requirements.txt").read())   
+    st.code(open("Code/requirements.txt").read())   
      
