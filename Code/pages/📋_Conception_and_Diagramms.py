@@ -1,6 +1,8 @@
 import streamlit as st
 
-st.title("Konzeptionelle Modelle und Zeichnungen", anchor='center')
+with st.container():
+    st.title("Konzeptionelle Modelle und Zeichnungen", anchor='center')
+    st.write("Um den Erstellungsprozess dieser Webapplikation genausmöglich dokumentieren zu können, sind hier die verscheidnen benutzten Modelle zu Projektentwicklung angegeben, die im folgenden spezifisch erklährt werden.")
 
 with st.container():  
     st.image('./WI-Modelle_Bilder_Zeichnungen/Ereignisliste.png', caption='Ereignisliste')
