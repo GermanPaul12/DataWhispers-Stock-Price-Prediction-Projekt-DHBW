@@ -12,3 +12,6 @@ st.sidebar.success('Select a page above ⬆')
 with st.container():
     st.title('Data Whispers AG - Stock Price Prediction')
     st.write('You want to see the code? ➡ Check out the [Github Repository](https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW) 💡')
+    st.write("\n")
+    st.image("./WI-Modelle_Bilder_Zeichnungen/Preview-Website.png", caption='Preview')
+    
