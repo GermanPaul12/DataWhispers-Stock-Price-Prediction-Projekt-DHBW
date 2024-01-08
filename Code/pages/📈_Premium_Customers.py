@@ -1,7 +1,8 @@
 import streamlit as st
 import requests
 
-
+st.set_page_config(page_title='Premium Customers',page_icon='💹')
+st.title("Premium Customer Dashboard")
 def get_stock_data(interval="1mo", symbol="AMRN", range_="5y", region="US"):
     url = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v3/get-chart"
 
@@ -40,7 +41,11 @@ if pw == "1234" and log_in_button:
     st.info("You are logged in!")
     st.session_state.logged_in = True
     st.empty()
-    st.json(get_stock_data())
+    col1,col2,col3,col4 = st.columns(4)
+    with col1: query_stock_string = st.text_input("Enter a company name")
+    with col2: query_stock_region = st.selectbox("Select a region", ["US", "BR", "AU", "CA", "FR", "DE", "HK", "IN", "ES", "GB", "SG"])
+    with col3: button_to_get_stock_symbol = st.button("Get stock symbol", on_click=get_stock_symbol, args=(query_stock_string, query_stock_region))  
+
 elif log_in_button:
     st.warning("Wrong Password!")
 # Wenn nicht registirert, dann contact us weiterleitung

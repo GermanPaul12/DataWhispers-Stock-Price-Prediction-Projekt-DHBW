@@ -1,7 +1,8 @@
 import streamlit as st
 import yagmail
 
-st.title("Contact us")
+st.set_page_config(page_title='Contact us',page_icon='📧')
+st.title("Contact us 📧")
 
 # Forms um uns zu kontaktieren.
 with st.form("contact_form", clear_on_submit=True):

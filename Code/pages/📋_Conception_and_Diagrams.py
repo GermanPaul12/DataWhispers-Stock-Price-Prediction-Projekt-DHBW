@@ -1,5 +1,7 @@
 import streamlit as st
 
+st.set_page_config(page_title='Conception and Diagrams',page_icon='📜')
+
 with st.container():
     st.title("Konzeptionelle Modelle und Zeichnungen", anchor='center')
     st.write("Um den Erstellungsprozess dieser Webapplikation genausmöglich dokumentieren zu können, sind hier die verscheidnen benutzten Modelle zu Projektentwicklung angegeben, die im folgenden spezifisch erklährt werden.")

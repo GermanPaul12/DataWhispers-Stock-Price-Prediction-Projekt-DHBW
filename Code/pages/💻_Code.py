@@ -1,5 +1,6 @@
 import streamlit as st
 
+st.set_page_config(page_title='Code',page_icon='💻')
 st.title("Our Code 💻")
 
 if st.checkbox("Web-Scraping with Selenium"):
