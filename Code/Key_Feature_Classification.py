@@ -9,7 +9,7 @@ Created on Thu Nov 30 11:22:40 2023
 # libraries
 import pandas as pd
 import numpy as np
-import regex as re
+import re
 import string
 from collections import deque
 from typing import List, Union, Dict, Set, Tuple, Sequence
