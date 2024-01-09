@@ -69,3 +69,7 @@ venv/
 #Secrets
 secret.py
 secrets.toml
+
+# Large files
+glove.twitter.27B.200d.txt
+
