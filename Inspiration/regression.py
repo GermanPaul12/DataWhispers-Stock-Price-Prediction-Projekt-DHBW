@@ -6,7 +6,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 import pickle
 
-DATA_DIR = "./word2vec/regression_data/"  # use all pickle (or csv, depend on PICKLE) files in this directory
+DATA_DIR = r"./Inspiration/regression_data/"  # use all pickle (or csv, depend on PICKLE) files in this directory
 PICKLE = False
 
 
