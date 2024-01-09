@@ -24,13 +24,13 @@ To set up this project on your local machine, follow these steps:
    git clone https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW.git
    ```
 2. **Navigate to the Project Directory**:
-   \```bash
+   ```bash
    cd DataWhispers-Stock-Price-Prediction-Projekt-DHBW
-   \```
+   ```
 3. **Install Required Packages**:
-   \```bash
+   ```bash
    pip install -r requirements.txt
-   \```
+   ```
 
 ## Running the Web App
 
@@ -38,9 +38,9 @@ To run the Streamlit web app:
 
 Either:
 
-\```bash
+```bash
 streamlit run Code/🏠_Home.py
-\```
+```
 
 After running the command, Streamlit will start the web server, and the app will be accessible in your web browser.
 
