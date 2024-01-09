@@ -1,5 +1,10 @@
 import streamlit as st
 import requests
+import pandas as pd
+import json
+import plotly.express as px
+import cufflinks as cf
+
 
 st.set_page_config(page_title='Premium Customers',page_icon='💹')
 st.title("Premium Customer Dashboard")
@@ -46,8 +51,21 @@ with col1:
     query_stock_string = st.text_input("Enter a company name")
     query_stock_region = st.selectbox("Select a region", ["US", "BR", "AU", "CA", "FR", "DE", "HK", "IN", "ES", "GB", "SG"])
 with col2: 
-    button_to_get_stock_symbol = st.button("Get stock symbol", on_click=get_stock_symbol, args=(query_stock_string, query_stock_region))  
-    st.write(button_to_get_stock_symbol)
+    st.text('')
+    st.text('')
+    st.text('')
+    st.text('')
+    button_to_get_stock_symbol = st.button("Get stock symbol")  
+    if button_to_get_stock_symbol:
+        json_file_stock_symbol = get_stock_symbol(query_stock_string, query_stock_region)
+        st.json(json_file_stock_symbol)
+        content = json.dumps(json_file_stock_symbol)
+        df = pd.read_json(content, orient='index')
+        df = df.transpose()    
+        df.to_csv("Code/data/stock_symbols.csv")
+        
+            
+    
 
     
 
