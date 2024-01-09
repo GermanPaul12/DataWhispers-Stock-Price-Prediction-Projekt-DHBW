@@ -20,9 +20,9 @@ The Dow Jones Predictor is a tool designed to analyze historical data of the DJI
 To set up this project on your local machine, follow these steps:
 
 1. **Clone the Repository**:
-   \```bash
+   ```bash
    git clone https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW.git
-   \```
+   ```
 2. **Navigate to the Project Directory**:
    \```bash
    cd DataWhispers-Stock-Price-Prediction-Projekt-DHBW
