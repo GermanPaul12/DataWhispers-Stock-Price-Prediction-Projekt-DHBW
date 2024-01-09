@@ -35,17 +35,22 @@ def get_stock_symbol(querystring="APPLE", region="US"):
     
 # Log in 
 # Initialization
-pw = st.text_input("Password", type="password")
-log_in_button = st.button("Log in")
-if pw == "1234" and log_in_button:
-    st.info("You are logged in!")
-    st.session_state.logged_in = True
-    st.empty()
-    col1,col2,col3,col4 = st.columns(4)
-    with col1: query_stock_string = st.text_input("Enter a company name")
-    with col2: query_stock_region = st.selectbox("Select a region", ["US", "BR", "AU", "CA", "FR", "DE", "HK", "IN", "ES", "GB", "SG"])
-    with col3: button_to_get_stock_symbol = st.button("Get stock symbol", on_click=get_stock_symbol, args=(query_stock_string, query_stock_region))  
+#pw = st.text_input("Password", type="password")
+#log_in_button = st.button("Log in")
+#if pw == "1234" and log_in_button:
+#st.info("You are logged in!")
+st.session_state.logged_in = True
+st.empty()
+col1,col2 = st.columns(2)
+with col1: 
+    query_stock_string = st.text_input("Enter a company name")
+    query_stock_region = st.selectbox("Select a region", ["US", "BR", "AU", "CA", "FR", "DE", "HK", "IN", "ES", "GB", "SG"])
+with col2: 
+    button_to_get_stock_symbol = st.button("Get stock symbol", on_click=get_stock_symbol, args=(query_stock_string, query_stock_region))  
+    st.write(button_to_get_stock_symbol)
 
-elif log_in_button:
-    st.warning("Wrong Password!")
+    
+
+#elif log_in_button:
+#    st.warning("Wrong Password!")
 # Wenn nicht registirert, dann contact us weiterleitung
