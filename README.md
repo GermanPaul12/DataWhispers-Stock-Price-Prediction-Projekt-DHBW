@@ -29,7 +29,7 @@ To set up this project on your local machine, follow these steps:
    ```
 3. **Install Required Packages**:
    ```bash
-   pip install -r requirements.txt
+   pip install -r Code/requirements.txt
    ```
 
 ## Running the Web App
