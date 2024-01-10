@@ -21,7 +21,7 @@ The DataWhispers headquarters is not just a workplace; it's a symbol of the comp
          """)
 
 st.subheader("Office Room Example")
-OFFICE_IMG = Image.open("https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW/raw/master/Code/img/Office_Room_DataWhispers.png")
+OFFICE_IMG = Image.open("Code/img/Office_Room_DataWhispers.png")
 st.image(OFFICE_IMG)
 st.write("""
          The example office at DataWhispers' headquarters is a microcosm of the company's innovative spirit and functional elegance. Designed to optimize productivity and foster creativity, this space perfectly encapsulates the firm's ethos.
