@@ -33,4 +33,13 @@ with st.expander("You want to know, how this Website works? Click here to show t
     if st.checkbox("👥 About us"):
         st.code(open("Code/pages/7_👥_About_Us.py").read())          
          
-     
+if st.checkbox("Models"):
+    # List Python files in the models directory
+    model_files = ['article_extractor.py', 'bertopic.py', 'doc2vec.py', 'dov2vec.py', 'glove2.py', 'Key_Feature_Classification.py', 'preprocess.py', 'regression.py', 'preprocess_dow_jones.py', 'selenium-scraping.py', 'sentence_transformer.py']
+    
+    # Iterate through the list of files and create a checkbox for each one
+    for model_file in model_files:
+        if st.checkbox(model_file.replace(".py", "")):
+            file_path = f"Code/models/{model_file}"  # Path to the model file
+            st.code(open(file_path).read())  # Read the contents of the file and display as code
+         
