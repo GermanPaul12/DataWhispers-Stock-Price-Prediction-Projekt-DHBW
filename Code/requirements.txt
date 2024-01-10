@@ -11,3 +11,4 @@ streamlit==1.26.0
 cufflinks==0.17.3
 yagmail==0.15.293
 requests==2.31.0
+Pillow==9.5.0

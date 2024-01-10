@@ -1,10 +1,12 @@
 import streamlit as st
+from PIL import Image
 
 st.set_page_config(page_title='About us',page_icon='👥')
 st.title("About us👥")
 
 st.subheader("Our Headquarters")
-st.image(r"https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW/raw/master/Code/img/HQ_DataWhispers.png")
+HQ_IMG = Image.open(r"https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW/raw/master/Code/img/HQ_DataWhispers.png")
+st.image(HQ_IMG)
 st.write("""DataWhispers, a renowned company specializing in consulting and stock price prediction, has its headquarters as a testament to modern architectural brilliance and technological advancement. Constructed just two years ago, the building embodies the cutting-edge ethos of the company.
 
 Nestled in a bustling business district, the DataWhispers headquarters stands out with its sleek, futuristic design. The exterior is a fusion of glass and steel, reflecting the sky and surroundings, symbolizing the company's commitment to transparency and adaptability. At night, the building comes alive with a subtle LED display, showcasing fluctuating stock market trends, a nod to their expertise in stock price prediction.
@@ -19,7 +21,8 @@ The DataWhispers headquarters is not just a workplace; it's a symbol of the comp
          """)
 
 st.subheader("Office Room Example")
-st.image(r"https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW/raw/master/Code/img/Office_Room_DataWhispers.png")
+OFFICE_IMG = Image.open("https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW/raw/master/Code/img/Office_Room_DataWhispers.png")
+st.image(OFFICE_IMG)
 st.write("""
          The example office at DataWhispers' headquarters is a microcosm of the company's innovative spirit and functional elegance. Designed to optimize productivity and foster creativity, this space perfectly encapsulates the firm's ethos.
 
@@ -30,7 +33,8 @@ As you enter the example office, you're greeted by a minimalist yet vibrant sett
          """)
 
 st.subheader("Our Car Arsenal")
-st.image(r"https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW/raw/master/Code/img/Car_Arsenal_DataWhispers.png")
+CARS_IMG = Image.open(r"https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW/raw/master/Code/img/Car_Arsenal_DataWhispers.png")
+st.image(CARS_IMG)
 st.write("""
          
 The car arsenal at DataWhispers' headquarters is a sleek collection of vehicles, reflecting the company's status and commitment to efficiency and style. This fleet, primarily used for corporate duties, consists of a range of high-performance, luxury cars, each chosen for its reliability, comfort, and technological advancements.
@@ -42,7 +46,8 @@ The cars are finished in the company's signature colors, creating a visually imp
 
 
 st.subheader("Model Creation by our Scientists")
-st.image(r"https://raw.githubusercontent.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW/master/Code/img/Scientist_Solving_Model.png")
+SCIENTIST_IMG = Image.open(r"https://raw.githubusercontent.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW/master/Code/img/Scientist_Solving_Model.png")
+st.image(SCIENTIST_IMG)
 st.write("""
          At DataWhispers, our team of dedicated scientists stands at the forefront of innovation in stock price prediction. These experts, drawn from diverse fields like finance, data science, and artificial intelligence, are the driving force behind our cutting-edge predictive models.
 
