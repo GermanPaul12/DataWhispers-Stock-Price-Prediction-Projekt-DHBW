@@ -5,7 +5,6 @@ import plotly.graph_objs as go
 st.set_page_config(page_title='Our Products',page_icon='📦')
 st.title("Our Products 🚀")
 
-
 ## Einlesen der Daten + Preprocessing ##
 df = pd.read_csv("Code/data/Dow_jones.csv")
 df["Date"] = pd.to_datetime(df["Date"])
@@ -40,5 +39,5 @@ import numpy as np
 fillx = np.concatenate([x, x[::-1]])
 filly = np.concatenate([error_high, error_low[::-1]])
 
-fig.add_trace(go.Scatter(x=fillx, y=filly, fill='toself', fillcolor='rgba(0,176,246,0.2)', line=dict(color='rgba(255,255,255,0)'), name="Schwankung", showlegend=False, hoverinfo='none'))
+fig.add_trace(go.Scatter(x=fillx, y=filly, fill='toself', fillcolor='rgba(0,176,246,0.2)', line=dict(color='rgba(255,255,255,0)'), name="Tagesschwankung", hoverinfo='none'))
 st.plotly_chart(fig)
