@@ -5,7 +5,7 @@ st.set_page_config(page_title='About us',page_icon='👥')
 st.title("About us👥")
 
 st.subheader("Our Headquarters")
-HQ_IMG = Image.open(r"https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW/raw/master/Code/img/HQ_DataWhispers.png")
+HQ_IMG = Image.open(r"Code/img/HQ_DataWhispers.png")
 st.image(HQ_IMG)
 st.write("""DataWhispers, a renowned company specializing in consulting and stock price prediction, has its headquarters as a testament to modern architectural brilliance and technological advancement. Constructed just two years ago, the building embodies the cutting-edge ethos of the company.
 
