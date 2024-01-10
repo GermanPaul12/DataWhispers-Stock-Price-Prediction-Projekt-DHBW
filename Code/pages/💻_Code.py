@@ -21,6 +21,8 @@ if st.checkbox("Streamlit"):
     if st.checkbox("Contact Us"):
         st.code(open("Code/pages/📝_Contact_us.py").read())   
     if st.checkbox("Our Products"):
-        st.code(open("Code/pages/🚀_Our_Products.py").read())      
+        st.code(open("Code/pages/🚀_Our_Products.py").read())  
+    if st.checkbox("About us"):
+        st.code(open("Code/pages/👥_About_Us.py").read())          
          
      
