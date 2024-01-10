@@ -5,6 +5,8 @@ import plotly.graph_objs as go
 st.set_page_config(page_title='Our Products',page_icon='📦')
 st.title("Our Products 🚀")
 
+
+## Einlesen der Daten + Preprocessing ##
 df = pd.read_csv("Code/data/Dow_jones.csv")
 df["Date"] = pd.to_datetime(df["Date"])
 df["Average"] = (df[" Close"] + df[" Open"])//2
@@ -25,6 +27,7 @@ y = df["Average"]
 error_high=df[" High"]
 error_low=df[" Low"]
 
+## Plotten des Graphen ##
 fig = go.Figure(data=go.Scatter(x=x, y=y, mode='lines', name='Dow Jones'))
 #fig.add_trace(go.Scatter(x=x, y=y, mode='markers', name='Index'))
 #fig.add_trace(go.Scatter(x=x, y=error_high, mode="lines", name="Tageshöchstwert", marker= {"color": "green"}))
