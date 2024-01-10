@@ -42,7 +42,7 @@ The cars are finished in the company's signature colors, creating a visually imp
 
 
 st.subheader("Model Creation by our Scientists")
-st.image(r"https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW/raw/master/Code/img/Scientist_Solving_Model.png")
+st.image(r"https://raw.githubusercontent.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW/master/Code/img/Scientist_Solving_Model.png")
 st.write("""
          At DataWhispers, our team of dedicated scientists stands at the forefront of innovation in stock price prediction. These experts, drawn from diverse fields like finance, data science, and artificial intelligence, are the driving force behind our cutting-edge predictive models.
 
