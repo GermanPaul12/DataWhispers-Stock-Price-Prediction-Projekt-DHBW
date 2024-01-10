@@ -30,7 +30,7 @@ As you enter the example office, you're greeted by a minimalist yet vibrant sett
          """)
 
 st.subheader("Our Car Arsenal")
-st.image(r"https://raw.githubusercontent.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW/master/Code/img/Car_Arsenal_DataWhispers.png")
+st.image(r"https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW/blob/master/Code/img/Car_Arsenal_DataWhispers.png?raw=true")
 st.write("""
          
 The car arsenal at DataWhispers' headquarters is a sleek collection of vehicles, reflecting the company's status and commitment to efficiency and style. This fleet, primarily used for corporate duties, consists of a range of high-performance, luxury cars, each chosen for its reliability, comfort, and technological advancements.
