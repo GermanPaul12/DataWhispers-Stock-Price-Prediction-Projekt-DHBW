@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import plotly.graph_objs as go
 
 st.set_page_config(page_title='Our Products',page_icon='📦')
@@ -35,7 +36,6 @@ fig = go.Figure(data=go.Scatter(x=x, y=y, mode='lines', name='Dow Jones'))
 fig.update_layout(title='Dow Jones', xaxis_title='Datum', yaxis_title='Handelvolumen')
 fig.update_shapes(dict(type='rect', xref='x', yref='paper', x0=min(x), y0=0, x1=max(x), y1=1, fillcolor='lightgray', opacity=0.2, line_width=0))
 
-import numpy as np
 fillx = np.concatenate([x, x[::-1]])
 filly = np.concatenate([error_high, error_low[::-1]])
 
