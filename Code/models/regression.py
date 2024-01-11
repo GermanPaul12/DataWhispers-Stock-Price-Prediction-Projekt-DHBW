@@ -6,7 +6,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 import pickle
 
-DATA_DIR = r"./Inspiration/regression_data/"  # use all pickle (or csv, depend on PICKLE) files in this directory
+DATA_DIR = r"Code/data/models/"  # use all pickle (or csv, depend on PICKLE) files in this directory
 PICKLE = False
 
 
@@ -54,7 +54,7 @@ def evaluate_model(df, file_path):
     """
     file_path_stripped = file_path.split("/")[-1]
     # LOAD DOW JONES
-    target = pd.read_csv("./dow_jones/dow_jones_preprocessed.csv")
+    target = pd.read_csv("Code/data/dow_jones_preprocessed.csv")
     df_target = target[["Date", "Close"]]
     df_target = df_target.set_index("Date")
     df_target.rename_axis("date", inplace=True)
@@ -91,13 +91,13 @@ def evaluate_model(df, file_path):
 
     # SAVE MODEL FOR FUTURE USE
     with open(
-            f'./word2vec/regression_data/models/rmse_{rmse:.4f}_trainEval_{current_time}_onData_{file_path_stripped}.pickle'.replace(
+            f'Code/data/models/word2vec/rmse_{rmse:.4f}_trainEval_{current_time}_onData_{file_path_stripped}.pickle'.replace(
                 ":", "-"), 'wb') as f:
         pickle.dump(estimator, f)
 
     # SAVE DATA FOR FUTURE USE
     with open(
-            f'./word2vec/regression_data/data/rmse_{rmse:.4f}_trainEval_{current_time}_onData_{file_path_stripped}.pickle'.replace(
+            f'Code/data/models/word2vec/rmse_{rmse:.4f}_trainEval_{current_time}_onData_{file_path_stripped}.pickle'.replace(
                 ":", "-"), 'wb') as f:
         pickle.dump([X, y], f)
 
