@@ -7,7 +7,7 @@ from sklearn.metrics import mean_squared_error
 import pickle
 
 DATA_DIR = r"Code/data/models/"  # use all pickle (or csv, depend on PICKLE) files in this directory
-PICKLE = False
+PICKLE = True
 
 
 def warn(*args, **kwargs):
