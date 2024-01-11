@@ -2,10 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objs as go
-import plotly
-import cufflinks as cf
 import plotly.express as px
-cf.go_offline()
 
 # Asset Allocation Model
 
@@ -161,5 +158,8 @@ with st.expander("Wealth Distribution"):
 
            # fig.update_traces(textinfo='label+percent', textposition='inside')
             st.plotly_chart(fig, use_container_width=True)
-            wealth_calc_btn = st.button("Press here to calculate wealth after given time")
-            if wealth_calc_btn: wealth_calc = get_wealth_after_t_time(time, stocks, bonds, commodities, realEstate, cash, options)
+
+        st.subheader("Estimated Wealth after given time")
+        wealth_df = get_wealth_after_t_time(time, stocks, bonds, commodities, realEstate, cash, options)
+        fig_wealth = px.bar(wealth_df, x="year", y=["stocks", "bonds", "commodities", "realEstate", "cash", "options"], title="Wealth Calculation", color_discrete_sequence=px.colors.sequential.RdBu)
+        st.plotly_chart(fig_wealth, use_container_width=True)
