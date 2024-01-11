@@ -6,8 +6,7 @@ st.set_page_config(page_title='Our Products',page_icon='📦')
 st.title("Our Products 🚀")
 
 ## Einlesen der Daten + Preprocessing ##
-df = pd.read_csv("Code/data/Dow_jones.csv")
-st.write(df)
+df = pd.read_csv("Code/data/Dow_Jones.csv")
 df["Date"] = pd.to_datetime(df["Date"])
 df["Average"] = (df[" Close"] + df[" Open"])//2
 
