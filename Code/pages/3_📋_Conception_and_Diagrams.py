@@ -30,6 +30,9 @@ def displayPDF(file, Titel=""):
 
 # Microsoft Edge erlaubt in der Cloudversion keine PDFs??
 
-#displayPDF("Presentations/Auswirkungen_Marketing_Branding_PDF.pdf", "Marketing_Branding")
-#displayPDF("Presentations/Kosten-Nutzen-Analyse.pdf","Kosten_nutzen_Analyse")
-#displayPDF("Presentations/Zielgruppenanalyse_Data_Whispers_PDF.pdf","Zielgruppenanalyse")
+displayPDF("Presentations/Auswirkungen_Marketing_Branding_PDF.pdf", "Marketing_Branding")
+st.write("\n")
+displayPDF("Presentations/Kosten-Nutzen-Analyse.pdf","Kosten_nutzen_Analyse")
+st.write("\n")
+displayPDF("Presentations/Zielgruppenanalyse_Data_Whispers_PDF.pdf","Zielgruppenanalyse")
+st.write("\n")

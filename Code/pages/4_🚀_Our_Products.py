@@ -7,6 +7,7 @@ st.title("Our Products 🚀")
 
 ## Einlesen der Daten + Preprocessing ##
 df = pd.read_csv("Code/data/Dow_jones.csv")
+st.write(df)
 df["Date"] = pd.to_datetime(df["Date"])
 df["Average"] = (df[" Close"] + df[" Open"])//2
 
