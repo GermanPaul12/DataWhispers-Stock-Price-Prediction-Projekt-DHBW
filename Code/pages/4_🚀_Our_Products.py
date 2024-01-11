@@ -4,7 +4,6 @@ import numpy as np
 import plotly.graph_objs as go
 import plotly.express as px
 import locale
-import datetime
 locale.setlocale(locale.LC_ALL, 'de_DE')
 
 # Asset Allocation Model
