@@ -3,13 +3,11 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objs as go
 import plotly.express as px
-import locale
-#locale.setlocale(locale.LC_ALL, 'de_DE')
 
 # Asset Allocation Model
 
 def format_euro(num):
-    return locale.currency(num, grouping=True)
+    return "{:,.2f}".format(num).replace(',', ' ').replace('.', ',').replace(' ', '.') + '€'
 
 def wealth_distribution_prct(time, interest, risk):
     # Risk
@@ -131,7 +129,7 @@ tab1.plotly_chart(fig)
 tab2.write(dataInput.sort_values("Date", ascending=False))
 
 # Asset Allocation
-with st.expander("Wealth Distribution"):
+with st.expander("Wealth Distribution",True):
     with st.form("Wealth Distrubition Q&A"):
         money = st.number_input("How much money do you want to invest?", value=10000)
         time = st.slider("For how many years are you willing to invest?", min_value=0, max_value=80, value=20)
