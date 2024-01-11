@@ -131,7 +131,7 @@ tab2.write(dataInput.sort_values("Date", ascending=False))
 # Asset Allocation
 with st.expander("Wealth Distribution",True):
     with st.form("Wealth Distrubition Q&A"):
-        money = st.number_input("How much money do you want to invest?", value=10000)
+        money = st.number_input("How much money do you want to invest?", min_value=1,value=10000, step=10)
         time = st.slider("For how many years are you willing to invest?", min_value=0, max_value=80, value=20)
         interest = st.slider("How much interest in % do you want to make?", min_value=0, max_value=20, value=5)
         risk = st.select_slider("How much risk are you willing to take?", options=["1 (no risk)", "2 (little risk)", "3 (balanced risk)", "4 (high risk high reward)", "5 (I don't care if i loose everything)"], value="3 (balanced risk)")

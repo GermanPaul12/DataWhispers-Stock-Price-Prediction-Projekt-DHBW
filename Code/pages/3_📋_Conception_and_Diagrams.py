@@ -8,17 +8,17 @@ with st.container():
     st.write("Um den Erstellungsprozess dieser Webapplikation genaustmöglich dokumentieren zu können, sind hier die verschiedenen benutzten Modelle zur Projektentwicklung angegeben, die im Folgendem spezifisch erklärt werden.")
 
 with st.container():  
-    st.image('WI-Modelle_Bilder_Zeichnungen/Ereignisliste_dark.png', caption='Ereignisliste')
+    st.image('WI-Modelle_Bilder_Zeichnungen/Ereignisliste_dark.png')
     st.write("\n")
-    st.image('WI-Modelle_Bilder_Zeichnungen/Ereignis-Reaktions-Modelle_dark.png', caption='Ereignis-Reaktions-Modelle')
+    st.image('WI-Modelle_Bilder_Zeichnungen/Ereignis-Reaktions-Modelle_dark.png')
     st.write("\n")
-    st.image('WI-Modelle_Bilder_Zeichnungen/Kontextdiagramm_dark.png', caption='Kontextdiagramm')
+    st.image('WI-Modelle_Bilder_Zeichnungen/Kontextdiagramm_dark.png')
     st.write("\n")
-    st.image('WI-Modelle_Bilder_Zeichnungen/SWOT_dark.png', caption='SWOT-Analyse')
+    st.image('WI-Modelle_Bilder_Zeichnungen/SWOT_dark.png')
     st.write("\n")
-    st.image('WI-Modelle_Bilder_Zeichnungen/Kombinierte_SWOT_Analyse_dark.png', caption='Kombinierte SWOT-Analyse')
+    st.image('WI-Modelle_Bilder_Zeichnungen/Kombinierte_SWOT_Analyse_dark.png')
     st.write("\n")
-    st.image('WI-Modelle_Bilder_Zeichnungen/Aktivitätsdiagramm_dark.png', caption='Aktivitätsdiagramm')
+    st.image('WI-Modelle_Bilder_Zeichnungen/Aktivitätsdiagramm_dark.png')
 
 def displayPDF(file, Titel=""):
     # Opening file from file path
@@ -30,9 +30,9 @@ def displayPDF(file, Titel=""):
 
 # Microsoft Edge erlaubt in der Cloudversion keine PDFs??
 
-displayPDF("Presentations/Auswirkungen_Marketing_Branding_PDF.pdf", "Marketing_Branding")
-st.write("\n")
-displayPDF("Presentations/Kosten-Nutzen-Analyse.pdf","Kosten_nutzen_Analyse")
-st.write("\n")
-displayPDF("Presentations/Zielgruppenanalyse_Data_Whispers_PDF.pdf","Zielgruppenanalyse")
-st.write("\n")
+# displayPDF("Presentations/Auswirkungen_Marketing_Branding_PDF.pdf", "Marketing_Branding")
+# st.write("\n")
+# displayPDF("Presentations/Kosten-Nutzen-Analyse.pdf","Kosten_nutzen_Analyse")
+# st.write("\n")
+# displayPDF("Presentations/Zielgruppenanalyse_Data_Whispers_PDF.pdf","Zielgruppenanalyse")
+# st.write("\n")
