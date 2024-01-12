@@ -128,11 +128,11 @@ with st.expander("Dow Jones Predictor"):
     fillx = np.concatenate([x, x[::-1]])
     filly = np.concatenate([error_high, error_low[::-1]])
 
-fig.add_trace(go.Scatter(x=fillx, y=filly, fill='toself', fillcolor='rgba(0,176,246,0.2)', line=dict(color='rgba(255,255,255,0)'), name="Tagesschwankung", hoverinfo='none'))
+    fig.add_trace(go.Scatter(x=fillx, y=filly, fill='toself', fillcolor='rgba(0,176,246,0.2)', line=dict(color='rgba(255,255,255,0)'), name="Tagesschwankung", hoverinfo='none'))
 
-tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
-tab1.plotly_chart(fig)
-tab2.write(dataInput.sort_values("Date", ascending=False))
+    tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
+    tab1.plotly_chart(fig)
+    tab2.write(dataInput.sort_values("Date", ascending=False))
 
 # Asset Allocation
 with st.expander("Wealth Distribution",True):
