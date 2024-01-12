@@ -91,7 +91,7 @@ st.title("Our Products 🚀")
 
 with st.expander("Dow Jones Prediction"):
     df = pd.read_csv(r"Code/data/dow_jones_prediction_real.csv")
-    fig = px.line(df, x="date", y=[column for column in df.columns], title='Dow Jones Prediction', color_discrete_sequence=px.colors.sequential.RdBu)
+    fig = px.line(df, x=df.index, y=[column for column in df.columns], title='Dow Jones Prediction', color_discrete_sequence=px.colors.sequential.RdBu)
     st.plotly_chart(fig, use_container_width=True)
 
 # Dow Jones Prediction
