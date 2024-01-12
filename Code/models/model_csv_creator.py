@@ -21,32 +21,37 @@ def extract_rmse(file_path):
     else:
         return None
 
-def load_models():
-    def load_model(path):
-        with open(path, 'rb') as f:
-            model_data = pickle.load(f)
-            print(f"Loaded model data from {path} is of type: {type(model_data)}")
-            
-            if isinstance(model_data, list) and len(model_data) == 3:
-                features, targets, predictions = model_data
+def load_model(path):
+    with open(path, 'rb') as f:
+        model_data = pickle.load(f)
+        print(f"Loaded model data from {path} is of type: {type(model_data)}")
+        
+        # Check if the model data is a dictionary and contains the expected keys
+        if isinstance(model_data, dict) and all(key in model_data for key in ["features", "targets", "predictions", "r_squared"]):
+            features = model_data["features"]
+            targets = model_data["targets"]
+            predictions = model_data["predictions"]
+            r_squared = model_data["r_squared"]
 
-                if len(features) == len(targets) == len(predictions):
-                    # Convert targets and predictions to DataFrames
-                    df_targets = pd.DataFrame({'target': targets}, index=features.index)
-                    df_predictions = pd.DataFrame({'predictions': predictions}, index=features.index)
+            # Check if the lengths of features, targets, and predictions match
+            if len(features) == len(targets) == len(predictions):
+                df_features = pd.DataFrame(features)
+                df_targets = pd.DataFrame({'target': targets}, index=df_features.index)
+                df_predictions = pd.DataFrame({'predictions': predictions}, index=df_features.index)
 
-                    # Join the DataFrames
-                    df = features.join(df_targets).join(df_predictions)
-                    return df
-                else:
-                    print("Lists in the model data are not of the same length.")
+                # Combine into a single DataFrame
+                df = df_features.join(df_targets).join(df_predictions)
+                return df, r_squared
             else:
-                print("The loaded model data does not contain three lists.")
+                print("Components of the model data are not of the same length.")
+        else:
+            print("The loaded model data is not in the expected dict format or missing keys.")
 
-            return None
-    
-    
-    path = "Code/data/models/test_reg_models/"
+        return None, None
+
+
+def load_models():
+    path = "Code/data/models/reg_models/pickles/"
 
     models = []
     for (dirpath, dirnames, filenames) in walk(path):
@@ -55,19 +60,23 @@ def load_models():
     
     model_dfs = {}
     for model in models:
-        model_df = load_model(path + model)
+        model_df, r_squared = load_model(path + model)
         path_trash, model_name = model.split("onData_")
         
         rsme = extract_rmse(path_trash)
         model_name = model_name.replace(".pickle", "").replace(".csv", "")
         if model_df is not None:
             if model_name not in model_dfs:
-                model_dfs[model_name] = [model_df, rsme]
-            elif rsme is not None and rsme < model_dfs[model_name][1]: model_dfs[model_name] = [model_df, rsme]
-            #print(f"Data from {model}:")
-            #print(model_df.head())  # Inspect the first few rows of the loaded model DataFrame
-    #print(model_dfs)        
-    return model_dfs        
+                model_dfs[model_name] = [model_df, rsme, r_squared]
+            elif rsme is not None and rsme < model_dfs[model_name][1]:
+                model_dfs[model_name] = [model_df, rsme, r_squared]
+    return model_dfs
+
+# Other functions remain the same
+
+model_dfs = load_models()
+
+# Now, model_dfs contains the R-squared value at index 2 for each model.  
 
 def add_predictions_to_df(original_df, model_dfs):
     for model_name, model_df in model_dfs.items():
@@ -83,15 +92,18 @@ def create_rmse_df(model_dfs):
     # Extract model names and their RMSE scores
     model_names = []
     rmse_scores = []
+    r_squared = []
 
     for model_name, data in model_dfs.items():
         model_names.append(model_name)
         rmse_scores.append(data[1])  # Assuming the RMSE score is the second element
+        r_squared.append(data[2])  # Assuming the R-squared value
 
     # Create a DataFrame
     rmse_df = pd.DataFrame({
         'Model Name': model_names,
-        'RMSE': rmse_scores
+        'RMSE': rmse_scores,
+        'R-squared': r_squared
     })
 
     # Save the DataFrame to a CSV file
@@ -102,8 +114,8 @@ model_dfs = load_models()
 
 df = add_predictions_to_df(df, model_dfs)
 df.dropna(inplace=True)
-#df.to_csv("Code/data/dow_jones_prediction_real.csv")
+df.to_csv("Code/data/dow_jones_prediction_real.csv")
 
 rmse_df = create_rmse_df(model_dfs)
 
-print(rmse_df)
+print(model_dfs)

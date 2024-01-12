@@ -1,16 +1,16 @@
-Model Name,RMSE
-all-mpnet-base-v2_umap,1540246.5223
-all-distilroberta-v1_umap,1558379.145
-all-distilroberta-v1_umap_normalized,1558379.145
-all-MiniLM-L12-v2_umap,1919021.1377
-all-MiniLM-L12-v2_umap_normalized,1919021.1377
-data_regression_sentence_transformer_title,2224122.7264
-all-mpnet-base-v2_empty,2455980.5868
-all-mpnet-base-v2_empty_normalized,2455980.5868
-all-distilroberta-v1_empty,2587932.7285
-all-distilroberta-v1_empty_normalized,2587932.7285
-all-MiniLM-L12-v2_empty,3139850.0936
-all-MiniLM-L12-v2_empty_normalized,3139850.0936
-data_regression_doc2vec_content_256_e50,3550219.4995
-data_regression_title_200d,3663052.6849
-classification_wordnet_2,4330847.6667
+Model Name,RMSE,R-squared
+all-mpnet-base-v2_umap,1540246.5223,0.7901429196415644
+all-distilroberta-v1_umap,1558379.145,0.7876723675460434
+all-distilroberta-v1_umap_normalized,1558379.145,0.7876723675460432
+all-MiniLM-L12-v2_umap,1919021.1377,0.738535249212116
+all-MiniLM-L12-v2_umap_normalized,1919021.1377,0.7385352492121161
+data_regression_sentence_transformer_title,2224122.7264,0.6969654565157171
+all-mpnet-base-v2_empty,2455980.5868,0.6653750500878284
+all-mpnet-base-v2_empty_normalized,2455980.5868,0.665375050087827
+all-distilroberta-v1_empty,2587932.7285,0.6473967000028633
+all-distilroberta-v1_empty_normalized,2587932.7285,0.647396700002864
+all-MiniLM-L12-v2_empty,3139850.0936,0.5721984994787139
+all-MiniLM-L12-v2_empty_normalized,3139850.0936,0.5721984994787118
+data_regression_doc2vec_content_256_e50,3550223.0917,0.5162855803465528
+data_regression_title_200d,3663052.6849,0.5009126587552768
+classification_wordnet_2,4330847.6667,0.4099262464351604
