@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-
+from sklearn.metrics import r2_score
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
@@ -25,7 +25,15 @@ def evaluate_model_from_csv(csv: str):
     :param csv: str
     :return: passthrough from evaluate_model
     """
-    df = pd.read_csv(csv, index_col="date")
+    df = pd.read_csv(csv)
+    print(df)
+    if 'date' in df.columns:
+        df.set_index('date', inplace=True)
+    elif 'Date' in df.columns:
+        df.set_index('Date', inplace=True)
+    else:
+        raise ValueError('No date or Date column found in the CSV file.')
+
     print(df.info())
     if "Unnamed: 0" in df.columns: df = df.drop(columns=["Unnamed: 0"])
     print()
@@ -81,6 +89,7 @@ def evaluate_model(df, file_path):
 
     # EVALUATE
     rmse = mean_squared_error(y, predictions, squared=True)
+    r_squared = r2_score(y, predictions)  # Compute R-squared value
     rmse_div_num_test_samples = rmse / len(y)
 
     # Format with 1000s separator and 4 decimal places
@@ -88,19 +97,19 @@ def evaluate_model(df, file_path):
     print(f"RMSE / num_test_samples: {rmse_div_num_test_samples:,.4f}")
     current_time = datetime.now().time()
 
-    list_result = [file_path_stripped, rmse, rmse_div_num_test_samples, predictions]
+    list_result = [file_path_stripped, rmse, rmse_div_num_test_samples, predictions, r_squared]
 
-    # SAVE MODEL FOR FUTURE USE
-    with open(
-            f'Code/data/models/test_reg_models/rmse_{rmse:.4f}_trainEval_{current_time}_onData_{file_path_stripped}.pickle'.replace(
-                ":", "-"), 'wb') as f:
-        pickle.dump(estimator, f)
-
-    # SAVE DATA FOR FUTURE USE
-    with open(
-            f'Code/data/models/test_reg_models/rmse_{rmse:.4f}_trainEval_{current_time}_onData_{file_path_stripped}.pickle'.replace(
-                ":", "-"), 'wb') as f:
-        pickle.dump([X, y, predictions], f)
+    model_and_results = {
+        'model': estimator,
+        'features': X,
+        'targets': y,
+        'predictions': predictions,
+        'r_squared': r_squared,
+        'rmse': rmse
+    }
+    save_path = f'Code/data/models/reg_models/pickles/rmse_{rmse:.4f}_trainEval_{current_time}_onData_{file_path_stripped}.pickle'.replace(":", "-")
+    with open(save_path, 'wb') as f:
+        pickle.dump(model_and_results, f)
 
     return list_result
 
@@ -116,6 +125,6 @@ if __name__ == '__main__':
             if filename.endswith(".csv"):
                 file_path = os.path.join(DATA_DIR, filename)
                 list_of_list_res.append(evaluate_model_from_csv(file_path))
-    df_result = pd.DataFrame(list_of_list_res, columns=["file_path", "rmse", "rmse_div_num_test_samples", "predictions"])
-    df_result.to_csv(r'Code/data/models/test_reg_models/result/result_df.csv')
+    df_result = pd.DataFrame(list_of_list_res, columns=["file_path", "rmse", "rmse_div_num_test_samples", "predictions", "r_squared"])
+    df_result.to_csv(r'Code/data/models/reg_models/result/result_df.csv')
     print(df_result)
