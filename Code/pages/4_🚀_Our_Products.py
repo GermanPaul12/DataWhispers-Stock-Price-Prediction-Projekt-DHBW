@@ -88,11 +88,7 @@ def get_wealth_after_t_time(time, stocks, bonds, commodities, realEstate, cash, 
 st.set_page_config(page_title='Our Products',page_icon='📦')
 st.title("Our Products 🚀")
 
-## Einlesen der Daten + Preprocessing ##
-dataInput = pd.read_csv("Code/data/dow_jones_preprocessed.csv")
-df = dataInput.copy()
-df["Date"] = pd.to_datetime(df["Date"])
-df["Average"] = (df["Close"] + df["Open"])//2
+
 # Dow Jones Prediction
 with st.expander("Dow Jones Predictor"):
     ## Einlesen der Daten + Preprocessing ##
@@ -132,7 +128,7 @@ with st.expander("Dow Jones Predictor"):
 
     tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
     tab1.plotly_chart(fig)
-    tab2.write(dataInput.sort_values("Date", ascending=False))
+    tab2.write(df.sort_values("Date", ascending=False))
 
 # Asset Allocation
 with st.expander("Wealth Distribution",True):
