@@ -66,7 +66,7 @@ def load_models():
             elif rsme is not None and rsme < model_dfs[model_name][1]: model_dfs[model_name] = [model_df, rsme]
             #print(f"Data from {model}:")
             #print(model_df.head())  # Inspect the first few rows of the loaded model DataFrame
-    print(model_dfs)        
+    #print(model_dfs)        
     return model_dfs        
 
 def add_predictions_to_df(original_df, model_dfs):
@@ -79,18 +79,31 @@ def add_predictions_to_df(original_df, model_dfs):
 
     return original_df
 
-# Assuming 'models' is a dictionary where the key is the model name and the value is the corresponding DataFrame
-# Example: models = {'model1': df_model1, 'model2': df_model2, ...}
+def create_rmse_df(model_dfs):
+    # Extract model names and their RMSE scores
+    model_names = []
+    rmse_scores = []
 
-#df_with_predictions = add_predictions_to_df(df, models)
+    for model_name, data in model_dfs.items():
+        model_names.append(model_name)
+        rmse_scores.append(data[1])  # Assuming the RMSE score is the second element
 
-# Display the first few rows of the updated DataFrame
-#print(df_with_predictions.head())    
+    # Create a DataFrame
+    rmse_df = pd.DataFrame({
+        'Model Name': model_names,
+        'RMSE': rmse_scores
+    })
+
+    # Save the DataFrame to a CSV file
+    rmse_df.to_csv("Code/data/model_rmse_scores.csv", index=False)
+    return rmse_df
 
 model_dfs = load_models()
 
 df = add_predictions_to_df(df, model_dfs)
 df.dropna(inplace=True)
-df.to_csv("Code/data/dow_jones_prediction_real.csv")
+#df.to_csv("Code/data/dow_jones_prediction_real.csv")
 
-print(df)
+rmse_df = create_rmse_df(model_dfs)
+
+print(rmse_df)

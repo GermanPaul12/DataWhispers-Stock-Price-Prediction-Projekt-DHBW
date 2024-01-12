@@ -90,11 +90,17 @@ st.title("Our Products 🚀")
 
 
 with st.expander("Dow Jones Prediction"):
-    df = pd.read_csv(r"Code/data/dow_jones_prediction_real.csv")
+    df = pd.read_csv(r"Code/data/dow_jones_prediction.csv")
     df.set_index("Date", inplace=True)
     fig = px.line(df, x=df.index, y=[column for column in df.columns if column != "Date"], title='Dow Jones Prediction', color_discrete_sequence=px.colors.sequential.RdBu)
     st.plotly_chart(fig, use_container_width=True)
+    
+    df_rmse = pd.read_csv("Code/data/model_rmse_scores.csv")
+    fig = px.bar(df_rmse, x="Model Name", y="RMSE", color_discrete_sequence=px.colors.sequential.RdBu)
+    fig.update_xaxes(tickangle=90)
+    st.plotly_chart(fig, use_container_width=True)
 
+    
 # Dow Jones Prediction
 with st.expander("Dow Jones Predictor"):
     ## Einlesen der Daten + Preprocessing ##
