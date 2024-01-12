@@ -1,4 +1,0 @@
-,file_path,rmse,rmse_div_num_test_samples
-0,data_regression_doc2vec_content_256_e50.pickle,3550219.4995312463,34806.073524816136
-1,data_regression_sentence_transformer_title.pickle,2501854.965038235,24527.989853316027
-2,data_regression_title_200d.pickle,3663055.092053293,35912.30482405189

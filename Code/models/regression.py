@@ -88,19 +88,19 @@ def evaluate_model(df, file_path):
     print(f"RMSE / num_test_samples: {rmse_div_num_test_samples:,.4f}")
     current_time = datetime.now().time()
 
-    list_result = [file_path_stripped, rmse, rmse_div_num_test_samples]
+    list_result = [file_path_stripped, rmse, rmse_div_num_test_samples, predictions]
 
     # SAVE MODEL FOR FUTURE USE
     with open(
-            f'Code/data/models/word2vec/rmse_{rmse:.4f}_trainEval_{current_time}_onData_{file_path_stripped}.pickle'.replace(
+            f'Code/data/models/test_reg_models/rmse_{rmse:.4f}_trainEval_{current_time}_onData_{file_path_stripped}.pickle'.replace(
                 ":", "-"), 'wb') as f:
         pickle.dump(estimator, f)
 
     # SAVE DATA FOR FUTURE USE
     with open(
-            f'Code/data/models/word2vec/rmse_{rmse:.4f}_trainEval_{current_time}_onData_{file_path_stripped}.pickle'.replace(
+            f'Code/data/models/test_reg_models/rmse_{rmse:.4f}_trainEval_{current_time}_onData_{file_path_stripped}.pickle'.replace(
                 ":", "-"), 'wb') as f:
-        pickle.dump([X, y], f)
+        pickle.dump([X, y, predictions], f)
 
     return list_result
 
@@ -116,6 +116,6 @@ if __name__ == '__main__':
             if filename.endswith(".csv"):
                 file_path = os.path.join(DATA_DIR, filename)
                 list_of_list_res.append(evaluate_model_from_csv(file_path))
-    df_result = pd.DataFrame(list_of_list_res, columns=["file_path", "rmse", "rmse_div_num_test_samples"])
-    df_result.to_csv('Code/data/regression_data/result_df.csv')
+    df_result = pd.DataFrame(list_of_list_res, columns=["file_path", "rmse", "rmse_div_num_test_samples", "predictions"])
+    df_result.to_csv(r'Code/data/models/test_reg_models/result/result_df.csv')
     print(df_result)
