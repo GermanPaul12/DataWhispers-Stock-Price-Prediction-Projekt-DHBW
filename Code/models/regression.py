@@ -6,8 +6,8 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 import pickle
 
-DATA_DIR = r"Code/data/models/"  # use all pickle (or csv, depend on PICKLE) files in this directory
-PICKLE = True
+DATA_DIR = r"Code/data/regression_data/"  # use all pickle (or csv, depend on PICKLE) files in this directory
+PICKLE = False
 
 
 def warn(*args, **kwargs):
@@ -26,7 +26,8 @@ def evaluate_model_from_csv(csv: str):
     :return: passthrough from evaluate_model
     """
     df = pd.read_csv(csv, index_col="date")
-    df = df.drop(columns=["Unnamed: 0"])
+    print(df.info())
+    if "Unnamed: 0" in df.columns: df = df.drop(columns=["Unnamed: 0"])
     print()
     print(f"Evaluating model: {csv} with last modified: {datetime.fromtimestamp(os.path.getmtime(csv))}")
     return evaluate_model(df, file_path)
@@ -116,5 +117,5 @@ if __name__ == '__main__':
                 file_path = os.path.join(DATA_DIR, filename)
                 list_of_list_res.append(evaluate_model_from_csv(file_path))
     df_result = pd.DataFrame(list_of_list_res, columns=["file_path", "rmse", "rmse_div_num_test_samples"])
-    df_result.to_csv('result_df.csv')
+    df_result.to_csv('Code/data/regression_data/result_df.csv')
     print(df_result)
