@@ -46,7 +46,7 @@ def get_stock_symbol(querystring="APPLE", region="US"):
 #log_in_button = st.button("Log in")
 #if pw == "1234" and log_in_button:
 #st.info("You are logged in!")
-with st.container(border="3px solid white"):
+with st.expander("Get stock symbol"):
     st.session_state.logged_in = True
     st.empty()
     col1,col2 = st.columns(2)
