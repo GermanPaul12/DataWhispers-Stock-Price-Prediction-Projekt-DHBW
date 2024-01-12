@@ -89,6 +89,11 @@ st.set_page_config(page_title='Our Products',page_icon='📦')
 st.title("Our Products 🚀")
 
 
+with st.expander("Dow Jones Prediction"):
+    df = pd.read_csv(r"Code/data/dow_jones_prediction.csv")
+    fig = px.line(df, x=df.index, y=['REG_Close', "DOV_Close", "SENT_TRANS_Close", "Dow_Jones_Close"], title='Dow Jones Prediction', color_discrete_sequence=px.colors.sequential.RdBu)
+    st.plotly_chart(fig, use_container_width=True)
+
 # Dow Jones Prediction
 with st.expander("Dow Jones Predictor"):
     ## Einlesen der Daten + Preprocessing ##
@@ -175,3 +180,5 @@ with st.expander("Wealth Distribution",True):
         wealth_df = get_wealth_after_t_time(time, stocks, bonds, commodities, realEstate, cash, options)
         fig_wealth = px.bar(wealth_df, x="year", y=["stocks", "bonds", "commodities", "realEstate", "cash", "options"], title="Wealth Calculation", color_discrete_sequence=px.colors.sequential.RdBu)
         st.plotly_chart(fig_wealth, use_container_width=True)
+        
+        
