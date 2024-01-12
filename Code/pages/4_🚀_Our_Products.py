@@ -97,7 +97,7 @@ with st.expander("Dow Jones Prediction"):
     
     df_rmse = pd.read_csv("Code/data/model_rmse_scores.csv")
     
-    fig = px.bar(df_rmse, x="Model Name", y="squared", title="R-Sqaured Values for Models",color_discrete_sequence=px.colors.sequential.RdBu)
+    fig = px.bar(df_rmse, x="Model Name", y="R-squared", title="R-Sqaured Values for Models",color_discrete_sequence=px.colors.sequential.RdBu)
     fig.update_xaxes(tickangle=90)
     st.plotly_chart(fig, use_container_width=True)
     
