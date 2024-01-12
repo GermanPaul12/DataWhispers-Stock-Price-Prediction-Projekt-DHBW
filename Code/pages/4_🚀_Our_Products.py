@@ -92,7 +92,8 @@ st.title("Our Products 🚀")
 # Dow Jones Prediction
 with st.expander("Dow Jones Predictor"):
     ## Einlesen der Daten + Preprocessing ##
-    df = pd.read_csv("Code/data/dow_jones_preprocessed.csv")
+    df = pd.read_csv("Code/data/dow_jones_2019-2024.csv")
+    #df.drop(columns="Unnamed: 0")
     df["Date"] = pd.to_datetime(df["Date"])
     df["Average"] = (df["Close"] + df["Open"])//2
 
