@@ -93,62 +93,36 @@ with st.expander("Dow Jones Prediction"):
     df = pd.read_csv(r"Code/data/dow_jones_prediction.csv")
     df.set_index("Date", inplace=True)
     fig = px.line(df, x=df.index, y=[column for column in df.columns if column != "Date"], title='Dow Jones Prediction', color_discrete_sequence=px.colors.sequential.RdBu)
+    for i in df.columns:
+        if i != "Dow Jones" and i != "Date" and i != "all-mpnet-base-v2_umap":
+            fig.update_traces(visible='legendonly', selector=dict(name=i))
     st.plotly_chart(fig, use_container_width=True)
     
     df_rmse = pd.read_csv("Code/data/model_rmse_scores.csv")
     
     fig = px.bar(df_rmse, x="Model Name", y="R-squared", title="R-Sqaured Values for Models",color_discrete_sequence=px.colors.sequential.RdBu)
     fig.update_xaxes(tickangle=90)
+    fig.update_layout(
+    # set tick mode to array, tickvals to your vals calculated and tick text  to the text genrated
+        yaxis={"tickmode":"array","tickvals":[0.0, 0.2, 0.4, 0.6, 0.8, 1.0], "ticktext":["0.0", "0.2", "0.4", "0.6","0.8", "1.0"]}
+        )
     st.plotly_chart(fig, use_container_width=True)
     
     fig = px.bar(df_rmse, x="Model Name", y="RMSE", title="RMSE Values for Models", color_discrete_sequence=px.colors.sequential.RdBu)
     fig.update_xaxes(tickangle=90)
     st.plotly_chart(fig, use_container_width=True)
     
+    st.subheader("Best model 👑")
+    # name
+    st.write("BERTOPIC (all-mpnet-base-v2_umap)")
+    # rsme
+    st.write(f'RMSE: {df_rmse[df_rmse["Model Name"] == "all-mpnet-base-v2_umap"]["RMSE"]}')
+    # accuracy
+    st.write(f'Accuracy: {df_rmse[df_rmse["Model Name"] == "all-mpnet-base-v2_umap"]["R-squared"]*100:.2f} %')
+    # idea behind the model
+    st.write("Unsupervised topic generation by clustering similar document and similarity calculation")
     
 
-    
-# Dow Jones Prediction
-with st.expander("Dow Jones Predictor"):
-    ## Einlesen der Daten + Preprocessing ##
-    df = pd.read_csv("Code/data/dow_jones_2019-2024.csv")
-    #df.drop(columns="Unnamed: 0")
-    df["Date"] = pd.to_datetime(df["Date"])
-    df["Average"] = (df["Close"] + df["Open"])//2
-
-    startDate, endDate = df["Date"].min(), df["Date"].max()
-    col1, col2 = st.columns(2)
-
-    with col1:
-        date1 = pd.to_datetime(st.date_input("Start Date", startDate))
-
-    with col2:
-        date2 = pd.to_datetime(st.date_input("End Date", endDate))
-
-    df = df[(df["Date"] >= date1) & (df["Date"] <= date2)].copy()
-
-    x = df["Date"]
-    y = df["Average"]
-    error_high=df["High"]
-    error_low=df["Low"]
-
-    ## Plotten des Graphen ##
-    fig = go.Figure(data=go.Scatter(x=x, y=y, mode='lines', name='Dow Jones'))
-    #fig.add_trace(go.Scatter(x=x, y=y, mode='markers', name='Index'))
-    #fig.add_trace(go.Scatter(x=x, y=error_high, mode="lines", name="Tageshöchstwert", marker= {"color": "green"}))
-    #fig.add_trace(go.Scatter(x=x, y=error_low, mode="lines", name="Tagestiefstwert", marker= {"color": "red"}))
-
-    fig.update_layout(title='Dow Jones', xaxis_title='Datum', yaxis_title='Handelvolumen')
-    fig.update_shapes(dict(type='rect', xref='x', yref='paper', x0=min(x), y0=0, x1=max(x), y1=1, fillcolor='lightgray', opacity=0.2, line_width=0))
-
-    fillx = np.concatenate([x, x[::-1]])
-    filly = np.concatenate([error_high, error_low[::-1]])
-
-    fig.add_trace(go.Scatter(x=fillx, y=filly, fill='toself', fillcolor='rgba(0,176,246,0.2)', line=dict(color='rgba(255,255,255,0)'), name="Tagesschwankung", hoverinfo='none'))
-
-    tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
-    tab1.plotly_chart(fig)
-    tab2.write(df.sort_values("Date", ascending=False))
 
 # Asset Allocation
 with st.expander("Wealth Distribution",True):
