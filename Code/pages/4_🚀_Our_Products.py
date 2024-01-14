@@ -4,6 +4,9 @@ import numpy as np
 import plotly.graph_objs as go
 import plotly.express as px
 
+# Bitcoin API 
+bitcoin_price_url = "https://api.blockchain.com/v3/exchange/tickers/BTC-EUR"
+
 # Asset Allocation Model
 
 def format_euro(num):
@@ -116,11 +119,14 @@ with st.expander("Dow Jones Prediction"):
     # name
     st.write("BERTOPIC (all-mpnet-base-v2_umap)")
     # rsme
-    st.write(f'RMSE: {df_rmse[df_rmse["Model Name"] == "all-mpnet-base-v2_umap"]["RMSE"]}')
+    rmse = df_rmse[df_rmse["Model Name"] == "all-mpnet-base-v2_umap"]["RMSE"].iloc[0]  # Extract the first value from the Series
+    st.write(f'RMSE: {format_euro(rmse)[:-1]}')
     # accuracy
-    st.write(f'Accuracy: {df_rmse[df_rmse["Model Name"] == "all-mpnet-base-v2_umap"]["R-squared"]*100:.2f} %')
+    r_squared_value = df_rmse[df_rmse["Model Name"] == "all-mpnet-base-v2_umap"]["R-squared"].iloc[0]  # Extract the first value from the Series
+    accuracy_percentage = r_squared_value * 100
+    st.write(f'Accuracy: {accuracy_percentage:.2f} %')
     # idea behind the model
-    st.write("Unsupervised topic generation by clustering similar document and similarity calculation")
+    st.write("Idea: Unsupervised topic generation by clustering similar document and similarity calculation")
     
 
 
