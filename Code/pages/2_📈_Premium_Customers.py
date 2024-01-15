@@ -11,7 +11,7 @@ st.title("Premium Customer Dashboard")
 # Globale Variablen
 LOGIN_KEY = "premium_user_login"     # Schlüssel für den Login-Status
 PREMIUM_USERNAME = "testuser"        # Benutzername für Premium-User
-PREMIUM_PASSWORD = "test"            # Zufälliges Passwort für Premium-User, perfekt verschlüsselt!
+PREMIUM_PASSWORD = "test"            # Passwort für Premium-User, perfekt verschlüsselt!
 
 # Login-Funktion
 
