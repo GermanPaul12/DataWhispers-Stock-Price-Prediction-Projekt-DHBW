@@ -40,6 +40,7 @@ def Dax_Scrapping():
     driver.get(url)
     element=driver.find_element(By.XPATH,"/html/body")
     Kurse = element.text.split("Wertpapiere im DAX ® (40)")[1].split("Die Daten werden")[0]
+    driver.quit()
     return getDataFrame(Kurse)
 st.title("Es werden hier die aktuelle Daxkurse angezeigt!")
 st.write("\n")

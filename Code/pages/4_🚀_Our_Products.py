@@ -9,7 +9,7 @@ st.set_page_config(page_title='Our Products',page_icon='📦')
 st.title("Our Products 🚀")
 
 # Dow Jones
-with st.expander("Dow Jones", True):
+with st.expander("Dow Jones",True):
     df = pd.read_csv("Code/data/dow_jones_2019-2024.csv")
     df["Date"] = pd.to_datetime(df["Date"])
     df["Average"] = (df["Close"] + df["Open"])//2
