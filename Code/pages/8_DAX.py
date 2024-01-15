@@ -5,17 +5,16 @@ import numpy as np
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import os
+from datetime import datetime, timedelta
 
 def getDriver():
     user_agent = "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html)"  # Google Bot User Agent
-
+    user_agent="Code\data\chromedriver.exe"
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument(f'user-agent={user_agent}')
-    options.add_argument("--window-size=1920,1080")
     options.add_argument('--no-sandbox')
     options.add_argument('—-disable-extensions')
-    options.add_experimental_option('excludeSwitches', ['ignore-certificate-errors'])
     driver = webdriver.Chrome(options=options)
     
     return driver
@@ -46,15 +45,15 @@ st.title("Es werden hier die aktuelle Daxkurse angezeigt!")
 st.write("\n")
 randint = np.random.randint(1,1000)
 
-from datetime import datetime
-Heute = datetime.now().date()
+NOW = datetime.now()
+Heute, Stunde, Minute = NOW.date(),NOW.hour, NOW.minute
 with st.spinner("Wait for it ..."):
-    if not os.path.isfile(f"{Heute}.csv"):
+    if not os.path.isfile(f"{Heute}_{Stunde}_{Minute}.csv"):
         df=Dax_Scrapping()
         st.dataframe(df)
-        df.to_csv(f"{Heute}.csv", encoding="utf-8")
+        df.to_csv(f"Code/data/dax_data/{Heute}_{Stunde}_{Minute}.csv", encoding="utf-8")
     else:
-        df=pd.read_csv(f"{Heute}.csv",index_col=0)
+        df=pd.read_csv(f"{Heute}_{Stunde}_{Minute}.csv",index_col=0)
         st.dataframe(df)
 time.sleep(randint + 600*5)
 st.experimental_rerun()
