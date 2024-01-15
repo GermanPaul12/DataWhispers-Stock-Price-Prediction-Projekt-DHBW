@@ -13,50 +13,32 @@ def format_euro(num):
     return "{:,.2f}".format(num).replace(',', ' ').replace('.', ',').replace(' ', '.') + '€'
 
 def wealth_distribution_prct(time, interest, risk):
-    # Risk
-    if risk == "1 (no risk)":
-        risk = 1
-    elif risk == "2 (little risk)":
-        risk = 2
-    elif risk == "3 (balanced risk)":
-        risk = 3
-    elif risk == "4 (high risk high reward)":
-        risk = 4
-    elif risk == "5 (I don't care if i loose everything)":
-        risk = 5
-    
-    if risk == 5 and time > 5 and interest > 10:
-        return 70, 10, 5, 5, 0, 10
-    elif risk == 5 and time > 5:
-        return 80, 10, 0, 10, 0, 0
-    elif risk == 5 and time > 3:
-        return 0, 70, 10, 10, 10, 0
-    elif risk == 5 and time >= 1:    
-        return 0, 100, 0, 0, 0, 0
-    elif risk >= 4 and time > 10:
-        return 70, 10, 0, 20, 0, 0
-    elif risk >= 4 and time > 5:
-        return 50, 20, 0, 30, 0, 0
-    elif risk >= 4 and time > 3:
-        return 0, 50, 0, 50, 0, 0
-    elif risk >= 4 and time >= 1:
-        return 0, 100, 0, 0, 0, 0
-    elif risk >= 3 and time > 10:
-        return 50, 20, 0, 30, 0, 0
-    elif risk >= 3 and time > 5:
-        return 30, 30, 0, 50, 0, 0
-    elif risk >= 3 and time > 3:
-        return 0, 70, 0, 30, 0, 0
-    elif risk >= 3 and time >= 1:    
-        return 0, 100, 0, 0, 0, 0
-    elif risk >= 2 and time > 10:
-        return 30, 30, 0, 50, 0, 0
-    elif risk >= 2 and time > 5:
-        return 20, 40, 0, 40, 0, 0
-    elif time >= 1:
-        return 0, 100, 0, 0, 0, 0
-    else:
-        return 0, 0, 0, 0, 100, 0
+    risk_scale = {"1 (no risk)": 1, 
+                  "2 (little risk)": 2, 
+                  "3 (balanced risk)": 3, 
+                  "4 (high risk high reward)": 4, 
+                  "5 (I don't care if i loose everything)": 5}
+    risk = risk_scale[risk]
+    result = { # (id,Boolean)
+        (1 , 5 == risk and 6 <= time and interest > 10): (70, 10, 5, 5, 0, 10),
+        (2 , 5 == risk and 6 <= time and True)         : (80, 10, 0, 10, 0, 0),
+        (3 , 5 == risk and 4 <= time and True)         : ( 0, 70,10,10,10,  0),
+        (4 , 5 == risk and True      and True)         : ( 0,100, 0, 0, 0,  0),
+        (5 , 4 <= risk and time > 10 and True)         : (70, 10, 0,20, 0,  0),
+        (6 , 4 <= risk and 6 <= time and True)         : (50, 20, 0,30, 0,  0),
+        (7 , 4 <= risk and 4 <= time and True)         : ( 0, 50, 0,50, 0,  0),
+        (8 , 4 <= risk and True      and True)         : ( 0,100, 0, 0, 0,  0),
+        (9 , 3 <= risk and 6 <= time and True)         : (50, 20, 0,30, 0,  0),
+        (10, 3 <= risk and 4 <= time and True)         : (30, 30, 0,50, 0,  0),
+        (11, 3 <= risk and 3 <= time and True)         : ( 0, 70, 0,30, 0,  0),
+        (12, 3 <= risk and True      and True)         : ( 0,100, 0, 0, 0,  0),
+        (13, 2 <= risk and 10 < time and True)         : (20, 40, 0,40, 0,  0),
+        (14, True      and time >=1  and True)         : ( 0,100, 0, 0, 0,  0),
+        (15, True      and True      and True)         : ( 0,  0, 0, 0,100, 0)
+    }
+    for key in result:
+        if key[1]:
+            return result[key]  
 
 def wealth_distribution(money, stocks, bonds, commodities, realEstate, cash, options):
     stocks = money * stocks / 100
@@ -129,6 +111,33 @@ with st.expander("Dow Jones Prediction"):
     st.write("Idea: Unsupervised topic generation by clustering similar document and similarity calculation")
     
 
+# Dow Jones Prediction
+with st.expander("Dow Jones Predictor"):
+    df = pd.read_csv("Code/data/dow_jones_2019-2024.csv")
+    df["Date"] = pd.to_datetime(df["Date"])
+    df["Average"] = (df["Close"] + df["Open"])//2
+
+    startDate, endDate = df["Date"].min(), df["Date"].max()
+    col1, col2 = st.columns(2)
+    with col1:
+        date1 = pd.to_datetime(st.date_input("Start Date", startDate))
+    with col2:
+        date2 = pd.to_datetime(st.date_input("End Date", endDate))
+
+    df = df[(df["Date"] >= date1) & (df["Date"] <= date2)].copy()
+    x,y,error_high,error_low = df["Date"],df["Average"],df["High"],df["Low"]
+
+    ## Plotten des Graphen ##
+    fig = go.Figure(data=go.Scatter(x=x, y=y, mode='lines', name='Dow Jones'))
+    fig.update_layout(title='Dow Jones', xaxis_title='Datum', yaxis_title='Handelvolumen')
+    fig.update_shapes(dict(type='rect', xref='x', yref='paper', x0=min(x), y0=0, x1=max(x), y1=1, fillcolor='lightgray', opacity=0.2, line_width=0))
+    fillx = np.concatenate([x, x[::-1]])
+    filly = np.concatenate([error_high, error_low[::-1]])
+    fig.add_trace(go.Scatter(x=fillx, y=filly, fill='toself', fillcolor='rgba(0,176,246,0.2)', line=dict(color='rgba(255,255,255,0)'), name="Tagesschwankung", hoverinfo='none'))
+
+    tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
+    tab1.plotly_chart(fig)
+    tab2.write(df.sort_values("Date", ascending=False))
 
 # Asset Allocation
 with st.expander("Wealth Distribution",True):
