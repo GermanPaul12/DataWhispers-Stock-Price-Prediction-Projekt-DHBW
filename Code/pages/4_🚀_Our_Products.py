@@ -43,4 +43,11 @@ with st.expander("Dow Jones",True):
     tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
     tab1.plotly_chart(fig)
     tab2.write(df.sort_values("Date", ascending=False))
+    
+with st.expander("DAX",True):
+    url="https://www.tagesschau.de/wirtschaft/boersenkurse/dax-index-846900/"
+    df = pd.read_html(url)[-1].drop(columns="Relation")
+
+    with st.spinner("Wait for it ..."):
+        st.dataframe(df)
         
