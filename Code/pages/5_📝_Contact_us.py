@@ -12,6 +12,8 @@ def emailValid(email):
 st.set_page_config(page_title='Contact us',page_icon='📧')
 st.title("Contact us 📧")
 
+st.write('Du möchtest unseren Code sehen? ➡ Klicke hier [Github Repository](https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW) 💡')
+
 # Forms um uns zu kontaktieren.
 with st.form("contact_form", clear_on_submit=True):
     st.write("Please fill out the form below:")

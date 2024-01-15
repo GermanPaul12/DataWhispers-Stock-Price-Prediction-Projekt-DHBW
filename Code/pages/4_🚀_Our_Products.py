@@ -41,13 +41,12 @@ with st.expander("Dow Jones",True):
                             line=dict(color='rgba(255,255,255,0)'), name="Schwankung", hoverinfo='none'))
 
     tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
-    tab1.plotly_chart(fig)
-    tab2.write(df.sort_values("Date", ascending=False))
+    tab1.plotly_chart(fig, use_container_width=True)
+    tab2.dataframe(df,use_container_width=True)
     
-with st.expander("DAX",True):
+with st.expander("Wertpapiere im DAX 40",True):
     url="https://www.tagesschau.de/wirtschaft/boersenkurse/dax-index-846900/"
     df = pd.read_html(url)[-1].drop(columns="Relation")
-
-    with st.spinner("Wait for it ..."):
-        st.dataframe(df)
+    st.dataframe(df)
+    st.warning("💡 Die Daten werden von der :blue[Infront Financial Technology GmbH] bereitgestellt.Die Kursdaten werden je nach Börse unterschiedlich, mindestens jedoch 15 Minuten, zeitverzögert angezeigt.")
         
