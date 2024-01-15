@@ -29,7 +29,6 @@ def displayPDF(file, Titel=""):
         st.markdown(pdf_display, unsafe_allow_html=True)
 
 # Microsoft Edge erlaubt in der Cloudversion keine PDFs??
-
 # displayPDF("Presentations/Auswirkungen_Marketing_Branding_PDF.pdf", "Marketing_Branding")
 # st.write("\n")
 # displayPDF("Presentations/Kosten-Nutzen-Analyse.pdf","Kosten_nutzen_Analyse")
