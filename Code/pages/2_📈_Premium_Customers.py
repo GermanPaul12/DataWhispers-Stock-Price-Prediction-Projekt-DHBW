@@ -153,7 +153,7 @@ if st.session_state[LOGIN_KEY]:
         fig.update_xaxes(tickangle=90)
         st.plotly_chart(fig, use_container_width=True)
         
-        st.info("Data used for training the models: https://economictimes.indiatimes.com/archive/year-2019.cms")
+        st.error("Data used for training the models: https://economictimes.indiatimes.com/archive/year-2019.cms")
         
         st.subheader("Best model 👑")
         # name
