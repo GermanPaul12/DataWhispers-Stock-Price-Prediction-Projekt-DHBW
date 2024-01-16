@@ -11,7 +11,9 @@ st.set_page_config(page_title='Homepage',page_icon='🏠')
 
 
 # ---- HEADER SECTION ----
-st.image("Code/img/datawhispers_logo.png", use_column_width=True)
+col1, col2, col3 = st.columns(3)
+with col2:
+  st.image("Code/img/datawhispers_logo.png", use_column_width=True)
 st.markdown('<h1><center>Stock Price Prediction</center><h1>', unsafe_allow_html=True)
 st.write("""\nWillkommen im Olymp der Finanzwelt, wo die Götter des Reichtums mit goldenen
 Aktien jonglieren! "Data Whispers" ist kein gewöhnlicher Name - es ist ein

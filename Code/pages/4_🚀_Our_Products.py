@@ -44,6 +44,7 @@ with st.expander("Dow Jones",True):
     tab1.plotly_chart(fig, use_container_width=True)
     tab2.dataframe(df,use_container_width=True)
     
+    
 with st.expander("Wertpapiere im DAX 40",True):
     url="https://www.tagesschau.de/wirtschaft/boersenkurse/dax-index-846900/"
     df = pd.read_html(url)[-1].drop(columns="Relation")
