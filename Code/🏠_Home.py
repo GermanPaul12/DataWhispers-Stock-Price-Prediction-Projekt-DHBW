@@ -46,6 +46,7 @@ def main():
     color: #6c5ce7;
   }
   </style>
+  <h2>Pricing</h2>
   """, unsafe_allow_html=True)
   
   cols = st.columns(3)
@@ -57,12 +58,3 @@ def main():
     st.markdown(create_pricing_card("fa fa-diamond", "Business", "Let's talk", "<li style=list-style-type:check>Verhandelbare Zusatzleistungen</li><li style=list-style-type:check>Lizenz-Compliance</li><li style=list-style-type:check>Umfassende API</li><li style=list-style-type:check>Reporting</li>", "Kontaktieren"),unsafe_allow_html=True)
 
 main()
-        
-        
-st.write("""
-### Kontaktieren Sie uns
-Wenn Sie Fragen zu unseren Dienstleistungen haben oder eine Zusammenarbeit mit uns in Erwägung ziehen, 
-steht Ihnen unser Team jederzeit zur Verfügung. Bitte kontaktieren Sie uns unter:
-- Telefon: +1 (123) 456-7890
-- E-Mail: info@globalki.ai
-""")
