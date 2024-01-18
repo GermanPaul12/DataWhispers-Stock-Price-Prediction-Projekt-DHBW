@@ -172,6 +172,26 @@ if st.session_state[LOGIN_KEY]:
             # st.write(f'Accuracy: {accuracy_percentage:.2f} %')
             # idea behind the model
             # st.write("Idea: Unsupervised topic generation by clustering similar document and similarity calculation")
+        with st.expander("📈 Get your Stocks:", True):
+            st.session_state.logged_in = True
+            st.empty()
+            col1, col2 = st.columns(2)
+            with col1:
+                query_stock_string = st.text_input("Enter a company name")
+                query_stock_region = st.selectbox("Select a region", ["US", "BR", "AU", "CA", "FR", "DE", "HK", "IN", "ES", "GB", "SG"])
+            with col2:
+                st.text('')
+                st.text('')
+                st.text('')
+                st.text('')
+                button_to_get_stock_symbol = st.button("Get stock symbol")
+                if button_to_get_stock_symbol:
+                    json_file_stock_symbol = get_stock_symbol(query_stock_string, query_stock_region)
+                    st.json(json_file_stock_symbol)
+                    content = json.dumps(json_file_stock_symbol)
+                    df = pd.read_json(content, orient='index')
+                    df = df.transpose()
+                    df.to_csv("Code/data/stock_symbols.csv")
     with col2:      
         # Asset Allocation
         with st.expander("Wealth Distribution",True):
@@ -217,27 +237,4 @@ if st.session_state[LOGIN_KEY]:
                 st.subheader("Estimated Wealth after given time")
                 wealth_df = get_wealth_after_t_time(time, stocks, bonds, commodities, realEstate, cash, options)
                 fig_wealth = px.bar(wealth_df, x="year", y=["stocks", "bonds", "commodities", "realEstate", "cash", "options"], title="Wealth Calculation", color_discrete_sequence=px.colors.sequential.RdBu)
-                st.plotly_chart(fig_wealth, use_container_width=True)
-    col1, _ = st.columns(2)
-    with col1:        
-        with st.expander("📈 Get your Stocks:", True):
-            st.session_state.logged_in = True
-            st.empty()
-            col1, col2 = st.columns(2)
-            with col1:
-                query_stock_string = st.text_input("Enter a company name")
-                query_stock_region = st.selectbox("Select a region", ["US", "BR", "AU", "CA", "FR", "DE", "HK", "IN", "ES", "GB", "SG"])
-            with col2:
-                st.text('')
-                st.text('')
-                st.text('')
-                st.text('')
-                button_to_get_stock_symbol = st.button("Get stock symbol")
-                if button_to_get_stock_symbol:
-                    json_file_stock_symbol = get_stock_symbol(query_stock_string, query_stock_region)
-                    st.json(json_file_stock_symbol)
-                    content = json.dumps(json_file_stock_symbol)
-                    df = pd.read_json(content, orient='index')
-                    df = df.transpose()
-                    df.to_csv("Code/data/stock_symbols.csv")
-            
+                st.plotly_chart(fig_wealth, use_container_width=True)       
