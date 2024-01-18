@@ -218,6 +218,7 @@ if st.session_state[LOGIN_KEY]:
                 wealth_df = get_wealth_after_t_time(time, stocks, bonds, commodities, realEstate, cash, options)
                 fig_wealth = px.bar(wealth_df, x="year", y=["stocks", "bonds", "commodities", "realEstate", "cash", "options"], title="Wealth Calculation", color_discrete_sequence=px.colors.sequential.RdBu)
                 st.plotly_chart(fig_wealth, use_container_width=True)
+    col1, _ = st.columns(2)
     with col1:        
         with st.expander("📈 Get your Stocks:", True):
             st.session_state.logged_in = True
