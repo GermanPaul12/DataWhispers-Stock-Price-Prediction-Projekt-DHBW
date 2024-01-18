@@ -135,6 +135,7 @@ if st.session_state[LOGIN_KEY]:
         with st.expander("Dow Jones Prediction", True):
             df = pd.read_csv(r"Code/data/dow_jones_prediction.csv")
             df.set_index("Date", inplace=True)
+            df = df.rename(columns={"all-mpnet-base-v2_umap":"Prediction"})
             fig = px.line(df, x=df.index, y=[column for column in df.columns[:2]], title='Dow Jones Prediction', color_discrete_sequence=px.colors.sequential.RdBu)
             # for i in df.columns:
             #     if i != "Dow Jones" and i != "Date" and i != "all-mpnet-base-v2_umap":
@@ -175,11 +176,11 @@ if st.session_state[LOGIN_KEY]:
         with st.expander("📈 Get your Stocks:", True):
             st.session_state.logged_in = True
             st.empty()
-            col1, col2 = st.columns(2)
-            with col1:
+            col11, col22 = st.columns(2)
+            with col11:
                 query_stock_string = st.text_input("Enter a company name")
                 query_stock_region = st.selectbox("Select a region", ["US", "BR", "AU", "CA", "FR", "DE", "HK", "IN", "ES", "GB", "SG"])
-            with col2:
+            with col22:
                 st.text('')
                 st.text('')
                 st.text('')
