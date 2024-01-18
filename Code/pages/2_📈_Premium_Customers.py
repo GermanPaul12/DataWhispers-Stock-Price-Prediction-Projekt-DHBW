@@ -130,94 +130,94 @@ if st.session_state[LOGIN_KEY]:
             data["options"].append(options)
             data["money"].append(stocks + bonds + commodities + realEstate + cash + options)
         return data
-col1, col2 = st.columns(2)
-with col1:
-    with st.expander("Dow Jones Prediction", True):
-        df = pd.read_csv(r"Code/data/dow_jones_prediction.csv")
-        df.set_index("Date", inplace=True)
-        fig = px.line(df, x=df.index, y=[column for column in df.columns[:2]], title='Dow Jones Prediction', color_discrete_sequence=px.colors.sequential.RdBu)
-        # for i in df.columns:
-        #     if i != "Dow Jones" and i != "Date" and i != "all-mpnet-base-v2_umap":
-        #         fig.update_traces(visible='legendonly', selector=dict(name=i))
-        st.plotly_chart(fig, use_container_width=True)
-        
-        # df_rmse = pd.read_csv("Code/data/model_rmse_scores.csv")
-        # fig = px.bar(df_rmse, x="Model Name", y="R-squared", title="R-Sqaured Values for Models",color_discrete_sequence=px.colors.sequential.RdBu)
-        # fig.update_xaxes(tickangle=90)
-        # fig.update_layout(
-        # # set tick mode to array, tickvals to your vals calculated and tick text  to the text genrated
-        #     yaxis={"tickmode":"array","tickvals":[0.0, 0.2, 0.4, 0.6, 0.8, 1.0], "ticktext":["0.0", "0.2", "0.4", "0.6","0.8", "1.0"]}
-        #     )
-        # st.plotly_chart(fig, use_container_width=True)
-        
-        # fig = px.bar(df_rmse, x="Model Name", y="RMSE", title="RMSE Values for Models", color_discrete_sequence=px.colors.sequential.RdBu)
-        # fig.update_xaxes(tickangle=90)
-        # st.plotly_chart(fig, use_container_width=True)
-        
-        st.warning("💡 Data used for training the models: https://economictimes.indiatimes.com/archive/year-2019.cms")
-        Risking_should=1
-        Risking = st.slider("Choose your Risklevel", min_value=1, max_value=15)
-        # if Risking_should != Risking:
+    col1, col2 = st.columns(2)
+    with col1:
+        with st.expander("Dow Jones Prediction", True):
+            df = pd.read_csv(r"Code/data/dow_jones_prediction.csv")
+            df.set_index("Date", inplace=True)
+            fig = px.line(df, x=df.index, y=[column for column in df.columns[:2]], title='Dow Jones Prediction', color_discrete_sequence=px.colors.sequential.RdBu)
+            # for i in df.columns:
+            #     if i != "Dow Jones" and i != "Date" and i != "all-mpnet-base-v2_umap":
+            #         fig.update_traces(visible='legendonly', selector=dict(name=i))
+            st.plotly_chart(fig, use_container_width=True)
             
+            # df_rmse = pd.read_csv("Code/data/model_rmse_scores.csv")
+            # fig = px.bar(df_rmse, x="Model Name", y="R-squared", title="R-Sqaured Values for Models",color_discrete_sequence=px.colors.sequential.RdBu)
+            # fig.update_xaxes(tickangle=90)
+            # fig.update_layout(
+            # # set tick mode to array, tickvals to your vals calculated and tick text  to the text genrated
+            #     yaxis={"tickmode":"array","tickvals":[0.0, 0.2, 0.4, 0.6, 0.8, 1.0], "ticktext":["0.0", "0.2", "0.4", "0.6","0.8", "1.0"]}
+            #     )
+            # st.plotly_chart(fig, use_container_width=True)
             
-        # st.subheader("Best model 👑")
-        # # name
-        # st.write("BERTOPIC (all-mpnet-base-v2_umap)")
-        # rsme
-        # rmse = df_rmse[df_rmse["Model Name"] == "all-mpnet-base-v2_umap"]["RMSE"].iloc[0]  # Extract the first value from the Series
-        # st.write(f'RMSE: {format_euro(rmse)[:-1]}')
-        # # accuracy
-        # r_squared_value = df_rmse[df_rmse["Model Name"] == "all-mpnet-base-v2_umap"]["R-squared"].iloc[0]  # Extract the first value from the Series
-        # accuracy_percentage = r_squared_value * 100
-        # st.write(f'Accuracy: {accuracy_percentage:.2f} %')
-        # idea behind the model
-        # st.write("Idea: Unsupervised topic generation by clustering similar document and similarity calculation")
-with col2:      
-    # Asset Allocation
-    with st.expander("Wealth Distribution",True):
-        with st.form("Wealth Distrubition Q&A"):
-            money = st.number_input("How much money do you want to invest?", min_value=1,value=10000, step=10)
-            time = st.slider("For how many years are you willing to invest?", min_value=0, max_value=80, value=20)
-            interest = st.slider("How much interest in % do you want to make?", min_value=0, max_value=20, value=5)
-            risk = st.select_slider("How much risk are you willing to take?", options=["1 (no risk)", "2 (little risk)", "3 (balanced risk)", "4 (high risk high reward)", "5 (I don't care if i loose everything)"], value="3 (balanced risk)")
-            form_submit_btn = st.form_submit_button("Submit")
-        if form_submit_btn:
-            st.info("ℹ️ Our model assumes that you have at least 2-3 months of salary saved for safety measures and fully are able to invest the money amount you have provided us with.")
-            if int(risk[0]) < 3 and int(interest) > 10:
-                st.warning("You have to be joking. It's unrealistic to make high interest with low risk.")
-            if int(risk[0]) < 4 and int(interest) > 15:
-                st.warning("Your imagination might be not realistic, since it's unlikely to make high interest with low risk.")    
-            stocks, bonds, commodities, realEstate, cash, options = wealth_distribution(money, *wealth_distribution_prct(time, interest, risk)) 
-            col1, col2 = st.columns(2)
-            with col1:
-                with st.form("Ein schöner Kasten"):
-                    st.write(f"💸 Your Distribution:")
-                    st.write(f"Your allocation for {format_euro(money)}")
-                    st.write(f"Stocks: {format_euro(stocks)}")
-                    st.write(f"Bonds: {format_euro(bonds)}")
-                    st.write(f"Commodities: {format_euro(commodities)}")
-                    st.write(f"Real Estate: {format_euro(realEstate)}")
-                    st.write(f"Cash: {format_euro(cash)}")
-                    st.write(f"Options: {format_euro(options)}")
-                    form_submit_btn = st.form_submit_button("Retry")      
-            with col2:
-                # Create a DataFrame for the pie chart
-                df = pd.DataFrame({
-                    "Category": ["Stocks", "Bonds", "Commodities", "Real Estate", "Cash", "Options"],
-                    "Values": [stocks, bonds, commodities, realEstate, cash, options]
-                })
+            # fig = px.bar(df_rmse, x="Model Name", y="RMSE", title="RMSE Values for Models", color_discrete_sequence=px.colors.sequential.RdBu)
+            # fig.update_xaxes(tickangle=90)
+            # st.plotly_chart(fig, use_container_width=True)
+            
+            st.warning("💡 Data used for training the models: https://economictimes.indiatimes.com/archive/year-2019.cms")
+            Risking_should=1
+            Risking = st.slider("Choose your Risklevel", min_value=1, max_value=15)
+            # if Risking_should != Risking:
+                
+                
+            # st.subheader("Best model 👑")
+            # # name
+            # st.write("BERTOPIC (all-mpnet-base-v2_umap)")
+            # rsme
+            # rmse = df_rmse[df_rmse["Model Name"] == "all-mpnet-base-v2_umap"]["RMSE"].iloc[0]  # Extract the first value from the Series
+            # st.write(f'RMSE: {format_euro(rmse)[:-1]}')
+            # # accuracy
+            # r_squared_value = df_rmse[df_rmse["Model Name"] == "all-mpnet-base-v2_umap"]["R-squared"].iloc[0]  # Extract the first value from the Series
+            # accuracy_percentage = r_squared_value * 100
+            # st.write(f'Accuracy: {accuracy_percentage:.2f} %')
+            # idea behind the model
+            # st.write("Idea: Unsupervised topic generation by clustering similar document and similarity calculation")
+    with col2:      
+        # Asset Allocation
+        with st.expander("Wealth Distribution",True):
+            with st.form("Wealth Distrubition Q&A"):
+                money = st.number_input("How much money do you want to invest?", min_value=1,value=10000, step=10)
+                time = st.slider("For how many years are you willing to invest?", min_value=0, max_value=80, value=20)
+                interest = st.slider("How much interest in % do you want to make?", min_value=0, max_value=20, value=5)
+                risk = st.select_slider("How much risk are you willing to take?", options=["1 (no risk)", "2 (little risk)", "3 (balanced risk)", "4 (high risk high reward)", "5 (I don't care if i loose everything)"], value="3 (balanced risk)")
+                form_submit_btn = st.form_submit_button("Submit")
+            if form_submit_btn:
+                st.info("ℹ️ Our model assumes that you have at least 2-3 months of salary saved for safety measures and fully are able to invest the money amount you have provided us with.")
+                if int(risk[0]) < 3 and int(interest) > 10:
+                    st.warning("You have to be joking. It's unrealistic to make high interest with low risk.")
+                if int(risk[0]) < 4 and int(interest) > 15:
+                    st.warning("Your imagination might be not realistic, since it's unlikely to make high interest with low risk.")    
+                stocks, bonds, commodities, realEstate, cash, options = wealth_distribution(money, *wealth_distribution_prct(time, interest, risk)) 
+                col1, col2 = st.columns(2)
+                with col1:
+                    with st.form("Ein schöner Kasten"):
+                        st.write(f"💸 Your Distribution:")
+                        st.write(f"Your allocation for {format_euro(money)}")
+                        st.write(f"Stocks: {format_euro(stocks)}")
+                        st.write(f"Bonds: {format_euro(bonds)}")
+                        st.write(f"Commodities: {format_euro(commodities)}")
+                        st.write(f"Real Estate: {format_euro(realEstate)}")
+                        st.write(f"Cash: {format_euro(cash)}")
+                        st.write(f"Options: {format_euro(options)}")
+                        form_submit_btn = st.form_submit_button("Retry")      
+                with col2:
+                    # Create a DataFrame for the pie chart
+                    df = pd.DataFrame({
+                        "Category": ["Stocks", "Bonds", "Commodities", "Real Estate", "Cash", "Options"],
+                        "Values": [stocks, bonds, commodities, realEstate, cash, options]
+                    })
 
-                # Now create the pie chart using the DataFrame
-                fig = px.pie(df, values='Values', names='Category', title="Your Wealth Distribution",
-                            color_discrete_sequence=px.colors.sequential.RdBu, hole=0.5)
+                    # Now create the pie chart using the DataFrame
+                    fig = px.pie(df, values='Values', names='Category', title="Your Wealth Distribution",
+                                color_discrete_sequence=px.colors.sequential.RdBu, hole=0.5)
 
-            # fig.update_traces(textinfo='label+percent', textposition='inside')
-                st.plotly_chart(fig, use_container_width=True)
+                # fig.update_traces(textinfo='label+percent', textposition='inside')
+                    st.plotly_chart(fig, use_container_width=True)
 
-            st.subheader("Estimated Wealth after given time")
-            wealth_df = get_wealth_after_t_time(time, stocks, bonds, commodities, realEstate, cash, options)
-            fig_wealth = px.bar(wealth_df, x="year", y=["stocks", "bonds", "commodities", "realEstate", "cash", "options"], title="Wealth Calculation", color_discrete_sequence=px.colors.sequential.RdBu)
-            st.plotly_chart(fig_wealth, use_container_width=True)
+                st.subheader("Estimated Wealth after given time")
+                wealth_df = get_wealth_after_t_time(time, stocks, bonds, commodities, realEstate, cash, options)
+                fig_wealth = px.bar(wealth_df, x="year", y=["stocks", "bonds", "commodities", "realEstate", "cash", "options"], title="Wealth Calculation", color_discrete_sequence=px.colors.sequential.RdBu)
+                st.plotly_chart(fig_wealth, use_container_width=True)
             
     with st.expander("📈 Get your Stocks:", True):
         st.session_state.logged_in = True
