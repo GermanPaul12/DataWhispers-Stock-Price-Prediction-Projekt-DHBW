@@ -6,7 +6,6 @@ import plotly.express as px
 from datetime import timedelta
 
 st.set_page_config(page_title='Our Products',page_icon='📦', layout="wide")
-st.set_page_config(page_title='Our Products',page_icon='📦', layout='wide')
 st.title("Our Products 🚀")
 
 # Dow Jones

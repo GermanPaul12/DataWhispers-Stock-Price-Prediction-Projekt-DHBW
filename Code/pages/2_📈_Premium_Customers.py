@@ -6,7 +6,6 @@ import plotly.express as px
 import secrets
 
 st.set_page_config(page_title='Premium Customers', page_icon='💹', layout="wide")
-st.set_page_config(page_title='Premium Customers', page_icon='💹', layout='wide')
 st.title("Premium Customer Dashboard")
 
 # Globale Variablen
