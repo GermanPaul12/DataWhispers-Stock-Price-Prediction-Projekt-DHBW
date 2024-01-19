@@ -53,7 +53,7 @@ def main():
   with cols[0]:
     st.markdown(create_pricing_card("fa fa-star", "Basic", "0€/Monat", "<li style=list-style-type:check>Aktienanalyse</li><li style=list-style-type:check>Dynamische Dax 40</li><li style=list-style-type:check>24/7 Support</li>", "Kostenlos starten"),unsafe_allow_html=True)
   with cols[1]:
-    st.markdown(create_pricing_card("fa fa-certificate", "Premium", "25€/Monat", "<li style=list-style-type:check>Erweiterte Aktienanalyse</li><li style=list-style-type:check>Premiumuser Dashboard</li><li style=list-style-type:check>Priorisierte Supportanfragen</li>", "Jetzt kaufen"),unsafe_allow_html=True)
+    st.markdown(create_pricing_card("fa fa-certificate", "Premium", "25€/Monat", "<li style=list-style-type:check>Individuelle Vermögensberatung</li><li style=list-style-type:check>Premiumuser Dashboard</li><li style=list-style-type:check>Priorisierte Supportanfragen</li>", "Jetzt kaufen"),unsafe_allow_html=True)
   with cols[2]:
     st.markdown(create_pricing_card("fa fa-diamond", "Business", "Let's talk", "<li style=list-style-type:check>Verhandelbare Zusatzleistungen</li><li style=list-style-type:check>Lizenz-Compliance</li><li style=list-style-type:check>Umfassende API</li><li style=list-style-type:check>Reporting</li>", "Kontaktieren"),unsafe_allow_html=True)
 
