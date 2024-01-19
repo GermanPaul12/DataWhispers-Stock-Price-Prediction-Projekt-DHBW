@@ -22,7 +22,7 @@ kühnsten Investoren bestimmt ist. """)
 
 def create_pricing_card(icon, title, price, features, button_text):
   card = """
-  <div style="border:1px solid #aaaaaa; border-radius: 10px; padding:2em; margin:1em;">
+  <div style="border:1px solid #aaaaaa; border-radius: 10px; padding:2em; margin:1em; height:30em;">
     <div style="display:flex; justify-content:center; font-size: 3em; padding:0.5em;">
       <i class="{}"></i>
     </div>
@@ -51,7 +51,7 @@ def main():
   
   cols = st.columns(3)
   with cols[0]:
-    st.markdown(create_pricing_card("fa fa-star", "Basic", "0€/Monat", "<li style=list-style-type:check>Aktienanalyse</li><li style=list-style-type:check>Dynamische Dax 40</li>", "Kostenlos starten"),unsafe_allow_html=True)
+    st.markdown(create_pricing_card("fa fa-star", "Basic", "0€/Monat", "<li style=list-style-type:check>Aktienanalyse</li><li style=list-style-type:check>Dynamische Dax 40</li><li style=list-style-type:check>24/7 Support</li>", "Kostenlos starten"),unsafe_allow_html=True)
   with cols[1]:
     st.markdown(create_pricing_card("fa fa-certificate", "Premium", "25€/Monat", "<li style=list-style-type:check>Erweiterte Aktienanalyse</li><li style=list-style-type:check>Premiumuser Dashboard</li><li style=list-style-type:check>Priorisierte Supportanfragen</li>", "Jetzt kaufen"),unsafe_allow_html=True)
   with cols[2]:
