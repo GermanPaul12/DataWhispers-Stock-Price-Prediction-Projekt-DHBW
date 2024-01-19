@@ -5,7 +5,7 @@ import numpy as np
 
 
 # PageConfig
-st.set_page_config(page_title='Homepage',page_icon='🏠')
+st.set_page_config(page_title='Homepage',page_icon='🏠', layout="wide")
 #st.sidebar.success('Select a page above ⬆')
 
 

@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image
 
-st.set_page_config(page_title='About us',page_icon='👥')
+st.set_page_config(page_title='About us',page_icon='👥', layout="wide")
 st.title("About us👥")
 
 st.subheader("Our Headquarters")

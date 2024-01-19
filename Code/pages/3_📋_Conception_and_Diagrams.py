@@ -1,7 +1,7 @@
 import streamlit as st
 import base64
 
-st.set_page_config(page_title='Conception and Diagrams',page_icon='📜')
+st.set_page_config(page_title='Conception and Diagrams',page_icon='📜', layout="wide")
 
 with st.container():
     st.title("Konzeptionelle Modelle und Zeichnungen", anchor='center')

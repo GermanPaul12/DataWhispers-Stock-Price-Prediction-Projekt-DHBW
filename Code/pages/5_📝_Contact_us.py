@@ -9,7 +9,7 @@ def emailValid(email):
     else:  
         return 0
 
-st.set_page_config(page_title='Contact us',page_icon='📧')
+st.set_page_config(page_title='Contact us',page_icon='📧', layout="wide")
 st.title("Contact us 📧")
 
 st.write('Du möchtest unseren Code sehen? ➡ Klicke hier [Github Repository](https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW) 💡')
