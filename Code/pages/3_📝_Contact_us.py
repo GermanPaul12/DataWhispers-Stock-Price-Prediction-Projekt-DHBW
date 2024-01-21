@@ -2,24 +2,22 @@ import streamlit as st
 import yagmail
 import re  
 
+st.set_page_config(page_title='Contact us',page_icon='📧', layout="wide")
+st.title("Contact us 📧")
+
+st.write('You want to see our Code? ➡ Click here: [Github Repository](https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW) 💡')    
+st.write("""
+If you have any questions about our services or are considering working with us, 
+our team is always at your disposal. Please contact us at:
+- Telefon: +49 (123) 456-7890
+""")
+
 def emailValid(email):  
     regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')  
     if re.fullmatch(regex, email):  
         return 1
     else:  
         return 0
-
-st.set_page_config(page_title='Contact us',page_icon='📧', layout="wide")
-st.title("Contact us 📧")
-
-st.write('You want to see our Code? ➡ Click here: [Github Repository](https://github.com/GermanPaul12/DataWhispers-Stock-Price-Prediction-Projekt-DHBW) 💡')
-
-        
-st.write("""
-If you have any questions about our services or are considering working with us, 
-our team is always at your disposal. Please contact us at:
-- Telefon: +49 (123) 456-7890
-""")
 
 # Forms um uns zu kontaktieren.
 with st.form("contact_form", clear_on_submit=True):

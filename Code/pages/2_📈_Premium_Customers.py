@@ -1,9 +1,6 @@
 import streamlit as st
-import requests
 import pandas as pd
-import json
 import plotly.express as px
-import secrets
 
 st.set_page_config(page_title='Premium Customers', page_icon='💹', layout="wide")
 st.title("Premium Customer Dashboard")
@@ -36,33 +33,11 @@ def login_form():
                     st.success("Du bist jetzt ein Premium-User!")
                     st.experimental_rerun()
                 else:
-                    st.error("Invalid Username or Password!\nPlease [📝 Contact us](Contact_us), if you need help!")
+                    st.error("Invalid Username or Password! Please [📝 Contact us](Contact_us), if you need help!")
+
 login_form()
 
-def get_stock_data(interval="1mo", symbol="AMRN", range_="5y", region="US"):
-    url = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v3/get-chart"
-    querystring = {"interval": interval, "symbol": symbol, "range": range_, "region": region, "includePrePost": "false", "useYfid": "true", "includeAdjustedClose": "true", "events": "capitalGain,div,split"}
-    headers = {
-        "X-RapidAPI-Key": st.secrets.YAHOO_API_KEY,
-        "X-RapidAPI-Host": st.secrets.YAHOO_API_HOST
-    }
-    response = requests.get(url, headers=headers, params=querystring)
-    return response.json()
-
-def get_stock_symbol(querystring="APPLE", region="US"):
-    url = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/auto-complete"
-    querystring = {"q": querystring, "region": region}
-    headers = {
-        "X-RapidAPI-Key": st.secrets.YAHOO_API_KEY,
-        "X-RapidAPI-Host": st.secrets.YAHOO_API_HOST
-    }
-    response = requests.get(url, headers=headers, params=querystring)
-    return response.json()
-
 if st.session_state[LOGIN_KEY]:
-    
-    # Bitcoin API 
-    bitcoin_price_url = "https://api.blockchain.com/v3/exchange/tickers/BTC-EUR"
 
     # Asset Allocation Model
     def format_euro(num):
@@ -136,27 +111,6 @@ if st.session_state[LOGIN_KEY]:
             st.plotly_chart(fig, use_container_width=True)
             st.error("💡 Data used for training the models: https://economictimes.indiatimes.com/archive/year-2019.cms")
 
-            
-        with st.expander("📈 Get your Stocks:", True):
-            st.session_state.logged_in = True
-            st.empty()
-            col11, col22 = st.columns(2)
-            with col11:
-                query_stock_string = st.text_input("Enter a company name")
-                query_stock_region = st.selectbox("Select a region", ["US", "BR", "AU", "CA", "FR", "DE", "HK", "IN", "ES", "GB", "SG"])
-            with col22:
-                st.text('')
-                st.text('')
-                st.text('')
-                st.text('')
-                button_to_get_stock_symbol = st.button("Get stock symbol")
-                if button_to_get_stock_symbol:
-                    json_file_stock_symbol = get_stock_symbol(query_stock_string, query_stock_region)
-                    st.json(json_file_stock_symbol)
-                    content = json.dumps(json_file_stock_symbol)
-                    df = pd.read_json(content, orient='index')
-                    df = df.transpose()
-                    df.to_csv("Code/data/stock_symbols.csv")
     with col2:      
         # Asset Allocation
         with st.expander("Wealth Distribution",True):
@@ -173,9 +127,10 @@ if st.session_state[LOGIN_KEY]:
                 if int(risk[0]) < 4 and int(interest) > 15:
                     st.warning("Your imagination might be not realistic, since it's unlikely to make high interest with low risk.")    
                 stocks, bonds, commodities, realEstate, cash, options = wealth_distribution(money, *wealth_distribution_prct(time, interest, risk)) 
+                
                 col1, col2 = st.columns(2)
                 with col1:
-                    with st.form("Ein schöner Kasten"):
+                    with st.form("AllocationBox"):
                         st.write(f"💸 Your Distribution:")
                         st.write(f"Your allocation for {format_euro(money)}")
                         st.write(f"Stocks: {format_euro(stocks)}")
@@ -191,12 +146,9 @@ if st.session_state[LOGIN_KEY]:
                         "Category": ["Stocks", "Bonds", "Commodities", "Real Estate", "Cash", "Options"],
                         "Values": [stocks, bonds, commodities, realEstate, cash, options]
                     })
-
                     # Now create the pie chart using the DataFrame
                     fig = px.pie(df, values='Values', names='Category', title="Your Wealth Distribution",
                                 color_discrete_sequence=px.colors.sequential.RdBu, hole=0.5)
-
-                # fig.update_traces(textinfo='label+percent', textposition='inside')
                     st.plotly_chart(fig, use_container_width=True)
 
                 st.subheader("Estimated Wealth after given time")
