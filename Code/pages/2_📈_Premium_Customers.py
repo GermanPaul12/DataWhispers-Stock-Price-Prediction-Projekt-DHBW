@@ -14,14 +14,12 @@ PREMIUM_USERNAME = "Titan"        # Benutzername für Premium-User
 PREMIUM_PASSWORD = "Olymp"            # Passwort für Premium-User, perfekt verschlüsselt!
 
 # Login-Funktion
-
-
 def login_form():
     # Sitzungsvariablen initialisieren
     if not st.session_state.get(LOGIN_KEY):
         st.session_state[LOGIN_KEY] = False
     if st.session_state[LOGIN_KEY]:
-        col1, col2 = st.columns([1,13])
+        col1, col2 = st.columns([1,8])
         with col2:
             st.write("Du bist angemeldet als Premium-User.")
         with col1:
