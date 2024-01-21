@@ -10,8 +10,8 @@ st.title("Premium Customer Dashboard")
 
 # Globale Variablen
 LOGIN_KEY = "premium_user_login"     # Schlüssel für den Login-Status
-PREMIUM_USERNAME = "Titan"        # Benutzername für Premium-User
-PREMIUM_PASSWORD = "Olymp"            # Passwort für Premium-User, perfekt verschlüsselt!
+PREMIUM_USERNAME = "Olymp"           # Benutzername für Premium-User
+PREMIUM_PASSWORD = "Data"            # Passwort für Premium-User, perfekt verschlüsselt!
 
 # Login-Funktion
 def login_form():
