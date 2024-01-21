@@ -10,8 +10,8 @@ st.title("Premium Customer Dashboard")
 
 # Globale Variablen
 LOGIN_KEY = "premium_user_login"     # Schlüssel für den Login-Status
-PREMIUM_USERNAME = "testuser"        # Benutzername für Premium-User
-PREMIUM_PASSWORD = "test"            # Passwort für Premium-User, perfekt verschlüsselt!
+PREMIUM_USERNAME = "Titan"        # Benutzername für Premium-User
+PREMIUM_PASSWORD = "Olymp"            # Passwort für Premium-User, perfekt verschlüsselt!
 
 # Login-Funktion
 
@@ -21,10 +21,10 @@ def login_form():
     if not st.session_state.get(LOGIN_KEY):
         st.session_state[LOGIN_KEY] = False
     if st.session_state[LOGIN_KEY]:
-        col1, col2 = st.columns([5,1])
-        with col1:
-            st.write("Du bist angemeldet als Premium-User.\n\n")
+        col1, col2 = st.columns([1,13])
         with col2:
+            st.write("Du bist angemeldet als Premium-User.")
+        with col1:
             if st.button("Ausloggen"):
                 st.session_state[LOGIN_KEY] = False
                 st.experimental_rerun()
@@ -41,7 +41,6 @@ def login_form():
                     st.error("Invalid Username or Password!\nPlease [📝 Contact us](Contact_us), if you need help!")
 login_form()
 
-
 def get_stock_data(interval="1mo", symbol="AMRN", range_="5y", region="US"):
     url = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v3/get-chart"
     querystring = {"interval": interval, "symbol": symbol, "range": range_, "region": region, "includePrePost": "false", "useYfid": "true", "includeAdjustedClose": "true", "events": "capitalGain,div,split"}
@@ -51,7 +50,6 @@ def get_stock_data(interval="1mo", symbol="AMRN", range_="5y", region="US"):
     }
     response = requests.get(url, headers=headers, params=querystring)
     return response.json()
-
 
 def get_stock_symbol(querystring="APPLE", region="US"):
     url = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/auto-complete"
@@ -63,14 +61,12 @@ def get_stock_symbol(querystring="APPLE", region="US"):
     response = requests.get(url, headers=headers, params=querystring)
     return response.json()
 
-
 if st.session_state[LOGIN_KEY]:
     
     # Bitcoin API 
     bitcoin_price_url = "https://api.blockchain.com/v3/exchange/tickers/BTC-EUR"
 
     # Asset Allocation Model
-
     def format_euro(num):
         return "{:,.2f}".format(num).replace(',', ' ').replace('.', ',').replace(' ', '.') + '€'
 
@@ -111,7 +107,6 @@ if st.session_state[LOGIN_KEY]:
         options = money * options / 100
         return stocks, bonds, commodities, realEstate, cash, options
 
-
     def get_wealth_after_t_time(time, stocks, bonds, commodities, realEstate, cash, options):
         data = {"year": [0], "stocks": [stocks], "bonds": [bonds], "commodities": [commodities], "realEstate": [realEstate], "cash": [cash], "options": [options], "money": [stocks + bonds + commodities + realEstate + cash + options]}
         for _ in range(time):
@@ -130,49 +125,20 @@ if st.session_state[LOGIN_KEY]:
             data["options"].append(options)
             data["money"].append(stocks + bonds + commodities + realEstate + cash + options)
         return data
+    
     col1, col2 = st.columns(2)
     with col1:
         with st.expander("Dow Jones Prediction", True):
+            Risking = st.slider("Choose your Risklevel", min_value=1, max_value=15)
             df = pd.read_csv(r"Code/data/dow_jones_prediction.csv")
             df.set_index("Date", inplace=True)
-            df = df.rename(columns={"all-mpnet-base-v2_umap":"Prediction"})
-            fig = px.line(df, x=df.index, y=[column for column in df.columns[:2]], title='Dow Jones Prediction', color_discrete_sequence=px.colors.sequential.RdBu)
-            # for i in df.columns:
-            #     if i != "Dow Jones" and i != "Date" and i != "all-mpnet-base-v2_umap":
-            #         fig.update_traces(visible='legendonly', selector=dict(name=i))
+            st.write()
+            df = df.rename(columns={df.columns[Risking]:"Prediction"})
+            fig = px.line(df, x=df.index, y=[df.columns[0],df.columns[Risking]],title='Dow Jones Prediction', color_discrete_sequence=px.colors.sequential.RdBu)
             st.plotly_chart(fig, use_container_width=True)
-            
-            # df_rmse = pd.read_csv("Code/data/model_rmse_scores.csv")
-            # fig = px.bar(df_rmse, x="Model Name", y="R-squared", title="R-Sqaured Values for Models",color_discrete_sequence=px.colors.sequential.RdBu)
-            # fig.update_xaxes(tickangle=90)
-            # fig.update_layout(
-            # # set tick mode to array, tickvals to your vals calculated and tick text  to the text genrated
-            #     yaxis={"tickmode":"array","tickvals":[0.0, 0.2, 0.4, 0.6, 0.8, 1.0], "ticktext":["0.0", "0.2", "0.4", "0.6","0.8", "1.0"]}
-            #     )
-            # st.plotly_chart(fig, use_container_width=True)
-            
-            # fig = px.bar(df_rmse, x="Model Name", y="RMSE", title="RMSE Values for Models", color_discrete_sequence=px.colors.sequential.RdBu)
-            # fig.update_xaxes(tickangle=90)
-            # st.plotly_chart(fig, use_container_width=True)
-            
             st.error("💡 Data used for training the models: https://economictimes.indiatimes.com/archive/year-2019.cms")
-            Risking_should=1
-            Risking = st.slider("Choose your Risklevel", min_value=1, max_value=15)
-            # if Risking_should != Risking:
-                
-                
-            # st.subheader("Best model 👑")
-            # # name
-            # st.write("BERTOPIC (all-mpnet-base-v2_umap)")
-            # rsme
-            # rmse = df_rmse[df_rmse["Model Name"] == "all-mpnet-base-v2_umap"]["RMSE"].iloc[0]  # Extract the first value from the Series
-            # st.write(f'RMSE: {format_euro(rmse)[:-1]}')
-            # # accuracy
-            # r_squared_value = df_rmse[df_rmse["Model Name"] == "all-mpnet-base-v2_umap"]["R-squared"].iloc[0]  # Extract the first value from the Series
-            # accuracy_percentage = r_squared_value * 100
-            # st.write(f'Accuracy: {accuracy_percentage:.2f} %')
-            # idea behind the model
-            # st.write("Idea: Unsupervised topic generation by clustering similar document and similarity calculation")
+
+            
         with st.expander("📈 Get your Stocks:", True):
             st.session_state.logged_in = True
             st.empty()
