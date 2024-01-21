@@ -29,13 +29,13 @@ with Base_col1:
         fillx = np.concatenate([x, x[::-1]])
         filly = np.concatenate([error_high, error_low[::-1]])
         
-        fig = px.line(x=x, y=y, title='Dow Jones')
+        fig = px.line(x=x, y=y, title='Dow Jones',color_discrete_sequence=px.colors.sequential.RdBu)
         fig.update_xaxes(title_text='Datum')
         fig.update_yaxes(title_text='Handelvolumen')
         fig.add_shape(type='rect', xref='x', yref='paper', x0=min(x), y0=0, x1=max(x), y1=1, 
                     fillcolor='lightgray', opacity=0.2, line_width=0)
-        fig.add_trace(go.Scatter(x=fillx, y=filly, fill='toself', fillcolor='rgba(0,176,246,0.2)', 
-                                line=dict(color='rgba(255,255,255,0)'), name="Schwankung", hoverinfo='none'))
+        fig.add_trace(go.Scatter(x=fillx, y=filly, fill='toself', fillcolor='rgba(255,12,24,0.2)', 
+                                line=dict(color='rgba(255,12,24,0)'), name="Schwankung", hoverinfo='none'))
 
         tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
         tab1.plotly_chart(fig, use_container_width=True)
