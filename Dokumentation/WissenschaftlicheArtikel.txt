@@ -1,0 +1,5 @@
+BERTopic: https://www.d.umn.edu/~tpederse/Pubs/AAAI04PedersenT.pdf
+Doc2Vec: https://proceedings.mlr.press/v32/le14.html?ref=https://githubhelp.com
+Sentence-BERT: https://arxiv.org/abs/2203.05794
+Glove: https://aclanthology.org/D14-1162.pdf
+WordNet: https://arxiv.org/abs/1908.10084
