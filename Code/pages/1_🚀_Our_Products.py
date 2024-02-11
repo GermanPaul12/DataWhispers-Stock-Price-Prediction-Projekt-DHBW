@@ -12,6 +12,7 @@ st.title("Our Products 🚀")
 Base_col1, Base_col2 = st.columns(2)
 with Base_col1:
     with st.expander("Dow Jones",True):
+        # Datenaufbereitung für Dow Jonesanzeige
         df = pd.read_csv("Code/data/dow_jones_2019-2024.csv")
         df["Date"] = pd.to_datetime(df["Date"])
         df["Average"] = (df["Close"] + df["Open"])//2
@@ -29,6 +30,7 @@ with Base_col1:
         fillx = np.concatenate([x, x[::-1]])
         filly = np.concatenate([error_high, error_low[::-1]])
         
+        # Plotten des Graphen mit plotly
         fig = px.line(x=x, y=y, title='Dow Jones',color_discrete_sequence=px.colors.sequential.RdBu)
         fig.update_xaxes(title_text='Datum')
         fig.update_yaxes(title_text='Handelvolumen')
@@ -38,7 +40,8 @@ with Base_col1:
         tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
         tab1.plotly_chart(fig, use_container_width=True)
         tab2.dataframe(df,use_container_width=True)
-    
+
+# Wertpapieranzeige DAX 40 - Live Scraping  
 with Base_col2:
     with st.expander("Wertpapiere im DAX 40",True):
         url="https://www.tagesschau.de/wirtschaft/boersenkurse/dax-index-846900/"

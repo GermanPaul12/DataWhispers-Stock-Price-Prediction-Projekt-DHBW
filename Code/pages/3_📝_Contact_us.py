@@ -19,7 +19,7 @@ def emailValid(email):
     else:  
         return 0
 
-# Forms um uns zu kontaktieren.
+# Forms, um uns zu kontaktieren.
 with st.form("contact_form", clear_on_submit=True):
     st.title('E-Mail')
     st.write("Please fill out the form below:")

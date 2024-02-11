@@ -50,7 +50,7 @@ if st.session_state[LOGIN_KEY]:
                     "4 (high risk high reward)": 4, 
                     "5 (I don't care if i loose everything)": 5}
         risk = risk_scale[risk]
-        result = { # (id,Boolean)
+        result = { # (id,Boolean) : (Vermögensverteilungswerte - siehe wealth distribution)
             (1 , 5 == risk and 6 <= time and interest > 10): (70, 10, 5, 5, 0, 10),
             (2 , 5 == risk and 6 <= time and True)         : (80, 10, 0, 10, 0, 0),
             (3 , 5 == risk and 4 <= time and True)         : ( 0, 70,10,10,10,  0),
@@ -99,8 +99,10 @@ if st.session_state[LOGIN_KEY]:
             data["money"].append(stocks + bonds + commodities + realEstate + cash + options)
         return data
     
+    # Anzeige Funktionen für Website layout
     col1, col2 = st.columns(2)
     with col1:
+        # Unsere Dow Jones Vorhersage basierend auf den gescrapten Artikeln
         with st.expander("Dow Jones Prediction", True):
             Risking = st.slider("Choose your Risklevel", min_value=1, max_value=15)
             df = pd.read_csv(r"Code/data/dow_jones_prediction.csv")
@@ -112,7 +114,7 @@ if st.session_state[LOGIN_KEY]:
             st.error("💡 Data used for training the models: https://economictimes.indiatimes.com/archive/year-2019.cms")
 
     with col2:      
-        # Asset Allocation
+        # Vermögensverwaltung
         with st.expander("Wealth Distribution",True):
             with st.form("Wealth Distrubition Q&A"):
                 money = st.number_input("How much money do you want to invest?", min_value=1,value=10000, step=10)
